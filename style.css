@@ -1,0 +1,368 @@
+/* Genel Stil Ayarları */
+body {
+    font-family: sans-serif;
+    margin: 60px;
+    padding: 0;
+    color: #00FF00; /* Default text to hacker green */
+    line-height: 1.6;
+
+    /* Animated Water Ripple Background */
+    background: linear-gradient(
+        -45deg,
+        #0A0A0A 20%,  /* Base dark color */
+        #001A00 35%,  /* Very dark green for troughs */
+        #003300 50%,  /* Medium dark green for wave body */
+        #004D00 60%,  /* Brighter green for wave crest highlight */
+        #003300 70%,  /* Medium dark green for wave body */
+        #001A00 85%,  /* Very dark green for troughs */
+        #0A0A0A 100% /* Base dark color */
+    );
+    background-size: 400% 400%; /* Makes the gradient large to allow smooth movement */
+    animation: waterRipple 25s ease infinite; /* Apply the animation */
+}
+
+@keyframes waterRipple {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+a {
+    text-decoration: none;
+    color: #00FF00; /* Links are hacker green */
+}
+
+a:hover {
+    color: #00DD00; /* Slightly dimmer green on hover */
+}
+
+/* Header ve Navigasyon */
+header {
+    background: #050505; /* Even darker for header */
+    color: #00FF00;
+    padding: 1rem 0;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 1px solid #003300; /* Dark green border */
+}
+
+header nav ul {
+    padding: 0;
+    list-style: none;
+    display: flex;
+    justify-content: center;
+}
+
+header nav ul li {
+    margin: 0 15px;
+}
+
+header nav ul li a {
+    color: #00FF00;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease, background-color 0.3s ease, padding 0.3s ease;
+    padding: 5px 10px;
+    border-radius: 4px;
+}
+
+header nav ul li a:hover {
+    color: #0A0A0A;
+    background-color: #33FF33;
+}
+
+/* Style for the active navigation link */
+header nav ul li a.active-link {
+    color: #0A0A0A;
+    background-color: #00FF00;
+    box-shadow: 0 0 10px #00FF00;
+}
+
+/* Hero Bölümü (Ana Görsel Alanı) */
+#hero {
+    background: linear-gradient(135deg, #0A0A0A 40%, #004d00 100%); /* Hacker green gradient */
+    color: #ffffff;
+    padding: 100px 20px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 800px; /* Adjust as needed */
+}
+
+.hero-image {
+    width: 280px; /* Further increased size */
+    height: 280px; /* Further increased size */
+    border-radius: 50%;
+    margin-right: 50px; /* Adjusted margin for larger size */
+    object-fit: cover;
+    border: 4px solid #00FF00; /* Slightly thicker border */
+    box-shadow: 0 0 25px rgba(0, 255, 0, 0.6); /* Green glow to make it pop */
+}
+
+.hero-content h1 {
+    font-size: 3em;
+    margin-bottom: 10px;
+    color: #ffffff; /* White for readability on hero gradient */
+}
+
+.hero-content p {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    color: #e0e0e0; /* Light gray for readability on hero gradient */
+}
+
+/* General Button Style (excluding hero button) */
+.btn {
+    display: inline-block;
+    background: #00FF00; /* Hacker green background */
+    color: #0A0A0A; /* Dark text for contrast */
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    font-size: 1.1em;
+    border: 1px solid #00AA00;
+}
+
+.btn:hover {
+    background: #00DD00;
+    color: #000000;
+}
+
+/* Hero section specific button style for hacker theme */
+#hero .btn {
+    background: #00FF00;
+    color: #0A0A0A;
+    border: 1px solid #00AA00;
+}
+
+#hero .btn:hover {
+    background: #00DD00;
+    color: #000000;
+}
+
+/* CSS for button pressed state */
+.js-button-pressed {
+    transform: scale(0.95) translateY(2px); /* Makes button slightly smaller and appear pushed in */
+    box-shadow: 0 0 5px rgba(0,255,0,0.5), inset 0 0 10px rgba(0,100,0,0.5); /* Inner shadow for pressed effect */
+    transition: transform 0.05s ease-out, box-shadow 0.05s ease-out;
+}
+
+/* Ortak Bölüm Stilleri */
+.section {
+    padding: 40px 20px;
+    text-align: center;
+    background-color: #0F0F0F; /* Dark background for sections */
+    color: #00FF00; /* Hacker green text */
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0,255,0,0.3); /* Greenish glow */
+    border: 1px solid #004d00; /* Dark green border */
+}
+
+.section:nth-child(even) {
+    background-color: #0A0A0A; /* Slightly different dark for variation */
+}
+
+.section h2 {
+    margin-bottom: 20px;
+    font-size: 2.5em;
+    color: #33FF33; /* Lighter hacker green for titles */
+    text-shadow: 0 0 5px #00FF00;
+}
+
+/* Projeler Bölümü */
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.project-card {
+    background: #050505; /* Very dark card background */
+    border: 1px solid #006600; /* Stronger green border */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,255,0,0.25);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    color: #00DDAA; /* Cyan-ish green for card text */
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 20px rgba(0,255,0,0.4);
+    border-color: #00FF00;
+}
+
+.project-card h3 {
+    margin-top: 0;
+    color: #33FF33; /* Lighter green for card titles */
+}
+
+.project-card p {
+    color: #00CC88; /* Slightly different green for paragraph */
+}
+
+.project-link {
+    display: inline-block;
+    margin-top: 10px;
+    color: #33FF33;
+    text-decoration: none;
+    font-weight: bold;
+    background-color: #003300;
+    padding: 5px 10px;
+    border-radius: 3px;
+    border: 1px solid #006600;
+}
+
+.project-link:hover {
+    text-decoration: none;
+    color: #0A0A0A;
+    background-color: #00FF00;
+    border-color: #00FF00;
+}
+
+/* Yetenekler Bölümü */
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    text-align: left;
+}
+
+.skill-category {
+    background: #050505; /* Very dark category background */
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #006600;
+    box-shadow: 0 0 10px rgba(0,255,0,0.25);
+}
+
+.skill-category h3 {
+    margin-top: 0;
+    color: #33FF33;
+    border-bottom: 2px solid #00FF00;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+.skill-category ul {
+    list-style: none;
+    padding: 0;
+}
+
+.skill-category ul li {
+    background: #0F0F0F; /* Dark item background */
+    color: #00E080; /* Green text for list items */
+    margin-bottom: 8px;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #004d00;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.skill-category ul li:hover {
+    background-color: #003300;
+    color: #33FF33;
+    border-color: #00FF00;
+}
+
+/* İletişim Bölümü */
+.contact-links {
+    margin-top: 20px;
+}
+
+.contact-btn {
+    display: inline-block;
+    margin: 10px;
+    padding: 12px 25px;
+    background-color: #00FF00;
+    color: #0A0A0A;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.3s ease, color 0.3s ease;
+    font-size: 1.1em;
+    border: 1px solid #00AA00;
+}
+
+.contact-btn:hover {
+    background-color: #00DD00;
+    color: #000000;
+    transform: translateY(-2px);
+    border-color: #33FF33;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 20px;
+    background: #050505; /* Even darker for footer */
+    color: #009900; /* Dimmer green for footer text */
+    margin-top: 20px;
+    border-top: 1px solid #003300;
+}
+
+/* Mobil uyumluluk için medya sorguları (renkler zaten ayarlandı, sadece layout) */
+@media (max-width: 768px) {
+    header nav ul {
+        flex-direction: column;
+    }
+
+    header nav ul li {
+        margin: 10px 0;
+    }
+
+    .hero-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .hero-image {
+        margin-right: 0;
+        margin-bottom: 20px;
+    }
+
+    /* Ensure hero text remains readable on mobile with new default green */
+    #hero .hero-content h1 {
+        color: #ffffff;
+    }
+    #hero .hero-content p {
+        color: #e0e0e0;
+    }
+
+    .section h2 {
+        font-size: 2em;
+    }
+
+    .project-grid, .skills-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Scroll Animation Base Styles */
+.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.animate-on-scroll.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
