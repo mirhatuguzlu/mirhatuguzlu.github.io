@@ -9,7 +9,7 @@ body {
     padding: 0;
     color: #212529; /* Dark Gray for default text */
     line-height: 1.6;
-    background-color: #2c3e50; /* Dark background for the "margin" area */
+    background-color: #f0f0f0; /* Light gray background for the "margin" area */
 }
 
 img {
@@ -20,9 +20,9 @@ img {
 
 a {
     text-decoration: none;
-    color: #007bff; /* Primary Blue for links */
+    color: #1abc9c; /* New Primary Color: Teal */
 }
-a:hover { color: #0056b3; /* Darker Blue on hover */ }
+a:hover { color: #16a085; /* Darker Teal on hover */ }
 
 /* Header ve Navigasyon */
 header {
@@ -53,7 +53,7 @@ header nav {
     color: #212529;
 }
 .nav-logo:hover {
-    color: #007bff;
+    color: #1abc9c; /* New Primary Color: Teal */
 }
 
 header nav ul {
@@ -80,8 +80,8 @@ header nav ul li a {
 
 header nav ul li a:hover,
 header nav ul li a.active-link {
-    color: #007bff;
-    background-color: rgba(0, 123, 255, 0.05); /* Very subtle highlight */
+    color: #1abc9c; /* New Primary Color: Teal */
+    background-color: rgba(26, 188, 156, 0.1); /* Subtle highlight with Teal */
 }
 
 /* Main Content Wrapper */
@@ -132,28 +132,31 @@ header nav ul li a.active-link {
 /* General Button Style */
 .btn, .contact-btn, .project-link {
     display: inline-block;
-    background: #007bff; /* Primary Blue background */
-    color: #ffffff;     /* White text */
-    padding: 10px 20px;
+    background-color: #1abc9c; /* New Primary Color: Teal */
+    color: #ffffff;
+    padding: 12px 24px; /* Increased padding */
     text-decoration: none;
-    border-radius: 0.25rem; /* Standard bootstrap-like radius */
-    transition: background-color 0.2s ease, transform 0.1s ease;
+    border-radius: 6px; /* Slightly more rounded corners */
+    transition: background-color 0.2s ease, transform 0.15s ease-out, box-shadow 0.2s ease; /* Adjusted transition timing */
     font-size: 1em;
     font-weight: 500;
-    border: 1px solid #007bff;
+    border: none; /* Remove border, rely on background and shadow */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .btn:hover, .contact-btn:hover, .project-link:hover {
-    background: #0056b3; /* Darker Blue on hover */
+    background-color: #16a085; /* Darker Teal on hover */
     color: #ffffff;
-    border-color: #0056b3;
+    transform: translateY(-3px); /* Increased lift on hover */
+    box-shadow: 0 5px 10px rgba(0,0,0,0.2); /* Enhanced shadow on hover */
 }
 
-.project-link { padding: 8px 15px; font-size: 0.9em; }
+.project-link { padding: 10px 20px; font-size: 0.9em; } /* Adjusted project link padding */
 
 .js-button-pressed {
-    transform: scale(0.97);
-    background-color: #004085; /* Even darker blue when pressed */
+    transform: scale(0.95) translateY(1px); /* More pronounced press, subtle downward shift */
+    background-color: #117a65; /* Even Darker Teal when pressed */
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3); /* Inset shadow for pressed feel */
 }
 
 /* Ortak Bölüm Stilleri */
@@ -197,7 +200,7 @@ header nav ul li a.active-link {
 .project-card h3, .skill-category h3 {
     margin-top: 0;
     margin-bottom: 15px;
-    color: #007bff; /* Accent color for card titles */
+    color: #1abc9c; /* New Primary Color: Teal for card titles */
 }
 .project-card p, .skill-category ul {
     color: #495057; /* Muted text for card content */
@@ -300,7 +303,7 @@ footer {
 
     header nav ul#nav-links li a:hover,
     header nav ul#nav-links li a.active-link { /* Style for active link in mobile menu */
-        background-color: #007bff;
+        background-color: #1abc9c; /* New Primary Color: Teal */
         color: #ffffff;
     }
 
