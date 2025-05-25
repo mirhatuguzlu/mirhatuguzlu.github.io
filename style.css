@@ -261,11 +261,7 @@ footer {
 /* Media Query for Even Smaller Screens (e.g., older phones) */
 @media (max-width: 480px) {
     body { margin: 10px; }
-    header nav ul {
-        /* flex-direction: row; Inherited from 768px or default */
-        /* justify-content: center; Inherited */
-        /* flex-wrap: wrap; Inherited */
-    }
+    /* header nav ul ruleset removed as it was empty and styles are inherited */
     header nav ul li {
         margin: 5px 5px; /* Further reduced margin */
     }
