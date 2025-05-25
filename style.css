@@ -48,8 +48,9 @@ header nav ul li a {
     text-decoration: none;
     font-weight: bold;
     transition: color 0.3s ease, background-color 0.3s ease, padding 0.3s ease;
-    padding: 5px 10px;
+    padding: 5px 10px; /* Desktop padding */
     border-radius: 4px;
+    font-size: 1em; /* Explicit desktop font size */
 }
 
 header nav ul li a:hover {
@@ -220,10 +221,21 @@ footer {
 /* Mobil uyumluluk için medya sorguları (renkler zaten ayarlandı, sadece layout) */
 @media (max-width: 768px) {
     body { margin: 20px; }
-    header nav ul { flex-direction: column; }
-    header nav ul li { margin: 10px 0; }
+    header nav ul {
+        flex-direction: row; /* Change to row for horizontal layout */
+        justify-content: center; /* Keep them centered */
+        flex-wrap: wrap; /* Allow wrapping if items are too many for one line */
+    }
+    header nav ul li {
+        margin: 5px 8px; /* Reduced margin for horizontal items */
+    }
+    header nav ul li a {
+        font-size: 0.9em; /* Slightly reduced font size for nav links */
+        padding: 5px 8px; /* Adjust padding */
+    }
+
     #hero {
-        padding: 50px 15px; /* Slightly reduced padding */
+        padding: 50px 15px;
     }
     .hero-content { flex-direction: column; text-align: center; }
     .hero-image {
@@ -249,6 +261,19 @@ footer {
 /* Media Query for Even Smaller Screens (e.g., older phones) */
 @media (max-width: 480px) {
     body { margin: 10px; }
+    header nav ul {
+        /* flex-direction: row; Inherited from 768px or default */
+        /* justify-content: center; Inherited */
+        /* flex-wrap: wrap; Inherited */
+    }
+    header nav ul li {
+        margin: 5px 5px; /* Further reduced margin */
+    }
+    header nav ul li a {
+        font-size: 0.8em; /* Further reduced font size */
+        padding: 4px 6px; /* Further adjust padding */
+    }
+
     #hero {
         padding: 40px 10px;
     }
@@ -262,11 +287,6 @@ footer {
         padding: 20px 10px;
     }
     .section h2 { font-size: 1.4em; }
-
-    header nav ul li a {
-        padding: 8px 10px; /* Smaller padding for nav links */
-        font-size: 0.95em;
-    }
 
     .btn, .contact-btn, .project-link {
         padding: 8px 12px;
