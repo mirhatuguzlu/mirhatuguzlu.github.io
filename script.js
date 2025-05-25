@@ -1,65 +1,107 @@
 document.addEventListener('DOMContentLoaded', function() {
     // --- Smooth scrolling for ALL anchor links ---
     const allSmoothScrollLinks = document.querySelectorAll('a[href^="#"]');
-    const navHeaderLinks = document.querySelectorAll('header nav ul li a[href^="#"]'); // Specific for active highlighting
+    const navHeaderLinksDesktop = document.querySelectorAll('header nav ul#nav-links li a[href^="#"]'); // Desktop links for active highlighting
+    const hamburgerMenu = document.querySelector('.hamburger-menu');
+    const navLinksMobile = document.querySelector('ul#nav-links'); // The UL for mobile toggling
 
+    // --- Hamburger Menu Toggle ---
+    if (hamburgerMenu && navLinksMobile) {
+        hamburgerMenu.addEventListener('click', function() {
+            this.classList.toggle('active');
+            navLinksMobile.classList.toggle('active');
+            // ARIA attribute update
+            const isExpanded = this.getAttribute('aria-expanded') === 'true' || false;
+            this.setAttribute('aria-expanded', !isExpanded);
+            // Optional: Prevent body scrolling when mobile menu is open
+            if (navLinksMobile.classList.contains('active')) {
+                document.body.classList.add('no-scroll');
+            } else {
+                document.body.classList.remove('no-scroll');
+            }
+        });
+
+        // Close mobile menu when a link is clicked
+        navLinksMobile.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', function() {
+                if (navLinksMobile.classList.contains('active')) {
+                    hamburgerMenu.classList.remove('active');
+                    navLinksMobile.classList.remove('active');
+                    hamburgerMenu.setAttribute('aria-expanded', 'false');
+                    document.body.classList.remove('no-scroll'); // Re-enable scrolling
+                }
+            });
+        });
+    }
+
+    // --- Smooth scrolling for ALL anchor links (including mobile dropdown links) ---
     allSmoothScrollLinks.forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault();
             const targetId = this.getAttribute('href');
+            // Special case for logo or home link to scroll to top
+            if (targetId === '#') {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                // Potentially remove active class from nav links if you have a logo-is-home behavior
+                if (navLinksMobile && navLinksMobile.classList.contains('active')) { // If mobile menu is open
+                     // No specific active link change here, handled by scroll or direct click logic
+                } else {
+                    navHeaderLinksDesktop.forEach(l => l.classList.remove('active-link'));
+                }
+                return; // Stop further processing for this simple top link
+            }
+
             const targetElement = document.querySelector(targetId);
             if (targetElement) {
-                // Update active class only for header navigation links
-                if (Array.from(navHeaderLinks).includes(this)) {
-                    navHeaderLinks.forEach(l => l.classList.remove('active-link'));
+                // Active class update for DESKTOP header navigation links on direct click
+                if (Array.from(navHeaderLinksDesktop).includes(this) && (!navLinksMobile || !navLinksMobile.classList.contains('active'))) {
+                    navHeaderLinksDesktop.forEach(l => l.classList.remove('active-link'));
                     this.classList.add('active-link');
                 }
+                // For mobile, active class is primarily handled by scroll or when menu closes
 
-                targetElement.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
+                const headerHeight = document.querySelector('header') ? document.querySelector('header').offsetHeight : 0;
+                const elementPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+                const offsetPosition = elementPosition - headerHeight;
+
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
                 });
             }
         });
     });
 
-    // --- Active Navigation Link Highlighting on Scroll (targets header links) ---
+    // --- Active Navigation Link Highlighting on Scroll (targets DESKTOP links) ---
+    // For mobile, active link could also be set, but typically less critical when menu is an overlay
     const sections = document.querySelectorAll('section[id]');
     function highlightNavOnScroll() {
         let scrollY = window.pageYOffset;
+        const headerHeight = document.querySelector('header') ? document.querySelector('header').offsetHeight : 0;
         let currentSectionId = '';
 
         sections.forEach(current => {
-            const sectionHeight = current.offsetHeight;
-            const sectionTop = current.offsetTop - 100; // Adjusted for header height/offset
-            let sectionId = current.getAttribute('id');
+            const sectionTop = current.offsetTop - headerHeight - 20; // Adjusted offset
+            const sectionBottom = sectionTop + current.offsetHeight;
 
-            if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
-                currentSectionId = sectionId;
+            if (scrollY >= sectionTop && scrollY < sectionBottom) {
+                currentSectionId = current.getAttribute('id');
             }
         });
 
-        navHeaderLinks.forEach(link => {
+        navHeaderLinksDesktop.forEach(link => {
             link.classList.remove('active-link');
             if (link.getAttribute('href') === `#${currentSectionId}`) {
                 link.classList.add('active-link');
             }
         });
-
-        if (currentSectionId === '' && scrollY < (sections.length > 0 ? sections[0].offsetTop -100 : 50) ) {
-            navHeaderLinks.forEach(link => link.classList.remove('active-link'));
-             // If hero is the first section and has a nav link
-            const heroLink = Array.from(navHeaderLinks).find(l => l.getAttribute('href') === '#hero');
-            if (heroLink && sections.length > 0 && sections[0].id === 'hero') {
-                 // No active link if scrolled to very top above hero, or hero itself doesn't have a nav link
-            } else if (heroLink) {
-                 // If we are at the top and there's a hero link, it could be active by default or handled differently
-                 // For now, let's ensure no link is active if truly at the very top before any section logic kicks in.
-            }
+         // If at the top, above first section, clear active links (desktop)
+        if (sections.length > 0 && scrollY < (sections[0].offsetTop - headerHeight - 20)){
+            navHeaderLinksDesktop.forEach(link => link.classList.remove('active-link'));
         }
     }
     window.addEventListener('scroll', highlightNavOnScroll);
-    highlightNavOnScroll();
+    highlightNavOnScroll(); // Initial call
 
     // --- Typing Effect for Hero Title ---
     const heroTitle = document.querySelector('#hero .hero-content h1');
@@ -74,7 +116,20 @@ document.addEventListener('DOMContentLoaded', function() {
                 setTimeout(typeWriter, 100);
             }
         }
-        typeWriter();
+        // Only start typing effect if hero section is observed (optional improvement)
+        const heroSection = document.getElementById('hero');
+        const heroObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Small delay before starting typing
+                    setTimeout(typeWriter, 300);
+                    heroObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+        if (heroSection) {
+            heroObserver.observe(heroSection);
+        }
     }
 
     // --- Scroll Animations for Sections/Elements (Fade-in effect) ---
@@ -118,5 +173,5 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    console.log("Portfolio script loaded with advanced features and button effects.");
+    console.log("Portfolio script loaded with hamburger menu and light theme adjustments.");
 });

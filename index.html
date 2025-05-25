@@ -9,7 +9,13 @@
 <body>
     <header>
         <nav>
-            <ul>
+            <a href="#" class="nav-logo">Mirhat UĞUZLU</a>
+            <button class="hamburger-menu" aria-label="Menüyü aç/kapat" aria-expanded="false">
+                <span class="hamburger-bar"></span>
+                <span class="hamburger-bar"></span>
+                <span class="hamburger-bar"></span>
+            </button>
+            <ul id="nav-links">
                 <li><a href="#hakkimda">Hakkımda</a></li>
                 <li><a href="#projeler">Projeler</a></li>
                 <li><a href="#yetenekler">Yetenekler</a></li>
@@ -18,90 +24,92 @@
         </nav>
     </header>
 
-    <section id="hero">
-        <div class="hero-content">
-            <img src="profilfoto.jpg" alt="Mirhat Muhammed UĞUZLU Fotoğrafı" class="hero-image">
-            <div>
-                <h1>Merhaba, Ben Mirhat Muhammed UĞUZLU</h1>
-                <p>Bilgisayar Mühendisliği 2. Sınıf Öğrencisi</p>
-                <a href="#projeler" class="btn">Projelerimi Görüntüle</a>
-            </div>
-        </div>
-    </section>
-
-    <section id="hakkimda" class="section">
-        <h2>Hakkımda</h2>
-        <p>
-            Merhaba! Ben Mirhat Muhammed UĞUZLU. Harran Üniversitesi Bilgisayar Mühendisliği 2. sınıf öğrencisiyim.
-            Yazılım geliştirmeye, özellikle Web Geliştirme ve Arka Uç alanlarına büyük bir ilgi duyuyorum. Problem çözmeye ve yeni teknolojiler öğrenmeye hevesliyim.
-            Bu portfolyo sitesi, eğitimim boyunca edindiğim bilgi ve tecrübelerimi, geliştirdiğim projeleri
-            sergilemek için oluşturulmuştur.
-        </p>
-    </section>
-
-    <section id="projeler" class="section">
-        <h2>Projelerim</h2>
-        <div class="project-grid">
-            <div class="project-card">
-                <h3>Proje Adı 1</h3>
-                <p>Bu proje, [kısa açıklama] için geliştirilmiştir. Kullanılan teknolojiler: HTML, CSS, JavaScript.</p>
-                <a href="https://github.com/seninkullaniciadin/proje1" target="_blank" class="project-link">GitHub'da Görüntüle</a>
+    <div class="main-content-wrapper">
+        <section id="hero">
+            <div class="hero-content">
+                <img src="profilfoto.jpg" alt="Mirhat Muhammed UĞUZLU Fotoğrafı" class="hero-image">
+                <div>
+                    <h1>Merhaba, Ben Mirhat Muhammed UĞUZLU</h1>
+                    <p>Bilgisayar Mühendisliği 2. Sınıf Öğrencisi</p>
+                    <a href="#projeler" class="btn">Projelerimi Görüntüle</a>
                 </div>
-            <div class="project-card">
-                <h3>Proje Adı 2</h3>
-                <p>Bu proje, [kısa açıklama] için geliştirilmiştir. Kullanılan teknolojiler: Python, Django, PostgreSQL.</p>
-                <a href="https://github.com/seninkullaniciadin/proje2" target="_blank" class="project-link">GitHub'da Görüntüle</a>
             </div>
-            </div>
-    </section>
-
-    <section id="yetenekler" class="section">
-        <h2>Yeteneklerim</h2>
-        <div class="skills-grid">
-            <div class="skill-category">
-                <h3>Programlama Dilleri</h3>
-                <ul>
-                    <li>HTML</li>
-                    <li>CSS</li>
-                    <li>Java</li>
-                    <li>C</li>
-                    <li>C++</li>
-                    </ul>
-            </div>
-            <div class="skill-category">
-                <h3>Frameworkler & Kütüphaneler</h3>
-                <ul>
-                    <li>Spring Boot</li>
-                </ul>
-            </div>
-            <div class="skill-category">
-                <h3>Veritabanları</h3>
-                <ul>
-                    <li>SQL (MySQL)</li>
-                </ul>
-            </div>
-            <div class="skill-category">
-                <h3>Araçlar & Teknolojiler</h3>
-                <ul>
-                    <li>RaspberryPI</li>
-                    <li>GitHub</li>
-                    <li>Eclipse</li>
-                    <li>Linux</li>
-                    <li>VS Code</li>
-                </ul>
-            </div>
-        </div>
-    </section>
-
-    <section id="iletisim" class="section">
-        <h2>İletişim</h2>
-        <p>Benimle iletişime geçmek için aşağıdaki yolları kullanabilirsiniz.</p>
-        <div class="contact-links">
-            <a href="mailto:mirhatmuhammeduguzlu@gmail.com" class="contact-btn">E-posta Gönder</a>
-            <a href="https://linkedin.com/in/mirhat-muhammed-uğuzlu-b24bb9295" target="_blank" class="contact-btn">LinkedIn</a>
-            <a href="https://github.com/mirhatuguzlu" target="_blank" class="contact-btn">GitHub</a>
-        </div>
         </section>
+
+        <section id="hakkimda" class="section">
+            <h2>Hakkımda</h2>
+            <p>
+                Merhaba! Ben Mirhat Muhammed UĞUZLU. Harran Üniversitesi Bilgisayar Mühendisliği 2. sınıf öğrencisiyim.
+                Yazılım geliştirmeye, özellikle Web Geliştirme ve Arka Uç alanlarına büyük bir ilgi duyuyorum. Problem çözmeye ve yeni teknolojiler öğrenmeye hevesliyim.
+                Bu portfolyo sitesi, eğitimim boyunca edindiğim bilgi ve tecrübelerimi, geliştirdiğim projeleri
+                sergilemek için oluşturulmuştur.
+            </p>
+        </section>
+
+        <section id="projeler" class="section">
+            <h2>Projelerim</h2>
+            <div class="project-grid">
+                <div class="project-card">
+                    <h3>Proje Adı 1</h3>
+                    <p>Bu proje, [kısa açıklama] için geliştirilmiştir. Kullanılan teknolojiler: HTML, CSS, JavaScript.</p>
+                    <a href="https://github.com/seninkullaniciadin/proje1" target="_blank" class="project-link">GitHub'da Görüntüle</a>
+                </div>
+                <div class="project-card">
+                    <h3>Proje Adı 2</h3>
+                    <p>Bu proje, [kısa açıklama] için geliştirilmiştir. Kullanılan teknolojiler: Python, Django, PostgreSQL.</p>
+                    <a href="https://github.com/seninkullaniciadin/proje2" target="_blank" class="project-link">GitHub'da Görüntüle</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="yetenekler" class="section">
+            <h2>Yeteneklerim</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3>Programlama Dilleri</h3>
+                    <ul>
+                        <li>HTML</li>
+                        <li>CSS</li>
+                        <li>Java</li>
+                        <li>C</li>
+                        <li>C++</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3>Frameworkler & Kütüphaneler</h3>
+                    <ul>
+                        <li>Spring Boot</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3>Veritabanları</h3>
+                    <ul>
+                        <li>SQL (MySQL)</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3>Araçlar & Teknolojiler</h3>
+                    <ul>
+                        <li>RaspberryPI</li>
+                        <li>GitHub</li>
+                        <li>Eclipse</li>
+                        <li>Linux</li>
+                        <li>VS Code</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="iletisim" class="section">
+            <h2>İletişim</h2>
+            <p>Benimle iletişime geçmek için aşağıdaki yolları kullanabilirsiniz.</p>
+            <div class="contact-links">
+                <a href="mailto:mirhatmuhammeduguzlu@gmail.com" class="contact-btn">E-posta Gönder</a>
+                <a href="https://linkedin.com/in/mirhat-muhammed-uğuzlu-b24bb9295" target="_blank" class="contact-btn">LinkedIn</a>
+                <a href="https://github.com/mirhatuguzlu" target="_blank" class="contact-btn">GitHub</a>
+            </div>
+        </section>
+    </div> <!-- End of .main-content-wrapper -->
 
     <footer>
         <p>&copy; 2025 mirhatmuhammeduguzlu. Tüm Hakları Saklıdır.</p>
