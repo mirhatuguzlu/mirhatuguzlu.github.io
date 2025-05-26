@@ -76,6 +76,8 @@ header nav ul li a {
     padding: 8px 12px;
     border-radius: 4px;
     font-size: 1em;
+    display: flex;
+    align-items: center;
 }
 
 header nav ul li a:hover,
