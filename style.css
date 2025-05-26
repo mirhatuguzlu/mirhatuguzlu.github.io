@@ -256,29 +256,28 @@ footer {
 /* Responsive adjustments will be heavily modified */
 @media (max-width: 768px) {
     .main-content-wrapper {
-        margin-left: 20px;  /* Reduced margin for tablets */
-        margin-right: 20px;
-        padding-top: 70px; /* Adjust for potentially smaller header */
-        padding-left: 15px; /* Inner padding */
+        margin-left: 15px;  /* Reduced margin for tablet */
+        margin-right: 15px;
+        padding-left: 15px;
         padding-right: 15px;
-        /* background-color: #ffffff; is inherited */
-        /* box-shadow: ...; is inherited or can be adjusted */
+        padding-top: 70px; /* Adjust if header height changes */
     }
+
     header nav {
-        padding: 0 10px;
+        padding: 0 10px; /* Reduce padding for smaller nav */
     }
-    /* Hamburger menu will be shown here, nav ul hidden */
     header nav ul#nav-links { /* Use ID for specificity */
-        display: none; /* Hidden on mobile by default */
+        display: none; /* Hidden by default */
         flex-direction: column;
         position: absolute;
-        top: 100%; /* Position below header. Assumes header padding/height is consistent. */
+        top: 100%; /* Position below the header */
         left: 0;
         width: 100%;
         background-color: #f8f9fa; /* Match header background */
-        box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Shadow for dropdown */
-        padding: 10px 0; /* Padding for the dropdown menu items */
-        z-index: 1030; /* Below hamburger icon if it overlaps, but above content */
+        border-top: 1px solid #e0e0e0;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        padding: 10px 0; /* Padding top/bottom for the dropdown */
+        align-items: center; /* Center li items */
     }
 
     header nav ul#nav-links.active {
@@ -286,25 +285,24 @@ footer {
     }
 
     header nav ul#nav-links li {
-        margin: 0; /* Remove horizontal margins */
-        width: 100%; /* Make list items full width */
-        text-align: center; /* Center the link text */
+        margin: 10px 0; /* Vertical spacing */
+        width: 100%; /* Make li take full width for text-align to work */
+        text-align: center; /* Center the text within li */
     }
 
     header nav ul#nav-links li a {
-        padding: 12px 20px; /* Comfortable tap targets */
-        display: block; /* Make the whole area clickable */
+        padding: 12px 20px; /* Larger touch target */
+        display: block; /* Make link take full width of li */
         width: 100%;
-        border-bottom: 1px solid #e9ecef; /* Separator for links */
+        box-sizing: border-box; /* Include padding in width */
     }
     header nav ul#nav-links li:last-child a {
-        border-bottom: none; /* No border for the last item */
+        border-bottom: none;
     }
 
     header nav ul#nav-links li a:hover,
-    header nav ul#nav-links li a.active-link { /* Style for active link in mobile menu */
-        background-color: #1abc9c; /* New Primary Color: Teal */
-        color: #ffffff;
+    header nav ul#nav-links li a.active-link {
+        background-color: rgba(26, 188, 156, 0.15); /* Slightly stronger hover/active for mobile */
     }
 
     .hamburger-menu {
