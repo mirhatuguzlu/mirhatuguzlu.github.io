@@ -133,7 +133,9 @@ header nav ul li a.active-link {
 
 /* General Button Style */
 .btn, .contact-btn, .project-link {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
     background-color: #1abc9c; /* New Primary Color: Teal */
     color: #ffffff;
     padding: 12px 24px; /* Increased padding */
@@ -216,6 +218,14 @@ header nav ul li a.active-link {
     border: 1px solid #e9ecef;
 }
 
+/* Contact Section */
+.contact-links {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
 /* Footer */
 footer {
     text-align: center; padding: 30px 0;
@@ -258,11 +268,8 @@ footer {
 /* Responsive adjustments will be heavily modified */
 @media (max-width: 768px) {
     .main-content-wrapper {
-        margin-left: 15px;  /* Reduced margin for tablet */
-        margin-right: 15px;
-        padding-left: 15px;
-        padding-right: 15px;
-        padding-top: 70px; /* Adjust if header height changes */
+        margin-left: 20px;
+        margin-right: 20px;
     }
 
     header nav {
@@ -320,7 +327,13 @@ footer {
     .hero-content p { font-size: 1.1em; }
     .section { padding: 40px 0; }
     .section h2 { font-size: 1.8em; }
-    /* Button and card styles might need slight padding/font adjustments if too large */
+    .contact-links {
+        flex-direction: column;
+        align-items: center;
+    }
+    .skills-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 @media (max-width: 480px) {
@@ -355,4 +368,12 @@ footer {
 /* Helper class to prevent body scroll when mobile menu is open */
 body.no-scroll {
     overflow: hidden;
+}
+
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    max-width: 800px;
+    margin: 0 auto;
 }
