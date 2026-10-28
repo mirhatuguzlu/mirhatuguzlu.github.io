@@ -1,379 +1,335 @@
-/* Genel Stil Ayarları */
-html {
-    scroll-behavior: smooth; /* For smooth scrolling from JS */
+/* ===== Temel ===== */
+:root {
+    --bg: #0a0a0b;
+    --bg-2: #141416;
+    --text: #ece8e1;
+    --muted: #8f8a82;
+    --accent: #e8b04a;
+    --line: rgba(236, 232, 225, 0.12);
+    --bar-h: 56px;
+    --serif: 'Fraunces', Georgia, serif;
+    --sans: 'Inter', system-ui, sans-serif;
+    --mono: 'JetBrains Mono', ui-monospace, monospace;
 }
+
+* { box-sizing: border-box; }
+
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
 
 body {
-    font-family: sans-serif;
-    margin: 0; /* Removed default margin, padding is 0 by default */
-    padding: 0;
-    color: #212529; /* Dark Gray for default text */
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
     line-height: 1.6;
-    background-color: #f0f0f0; /* Light gray background for the "margin" area */
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
 }
 
-img {
-    max-width: 100%;
-    height: auto;
-    display: block;
+img { max-width: 100%; display: block; }
+a { color: var(--accent); text-decoration: none; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+.mono { font-family: var(--mono); letter-spacing: 0.08em; text-transform: uppercase; font-size: 0.75rem; }
+.kicker { color: var(--accent); margin: 0 0 1.5rem; }
+
+/* ===== Üst/alt bantlar ===== */
+.bar {
+    position: fixed; left: 0; width: 100%; height: var(--bar-h);
+    background: #000; z-index: 50;
+}
+.bar-top { top: 0; transform-origin: top; }
+.bar-bottom { bottom: 0; transform-origin: bottom; }
+
+.grain {
+    position: fixed; inset: -50%; z-index: 60; pointer-events: none; opacity: 0.07;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    animation: grain 0.8s steps(4) infinite;
+}
+@keyframes grain {
+    0% { transform: translate(0, 0); }
+    25% { transform: translate(-3%, 2%); }
+    50% { transform: translate(2%, -3%); }
+    75% { transform: translate(-2%, -1%); }
+    100% { transform: translate(1%, 3%); }
+}
+.vignette {
+    position: fixed; inset: 0; z-index: 40; pointer-events: none;
+    background: radial-gradient(ellipse at center, transparent 55%, rgba(0, 0, 0, 0.65) 100%);
 }
 
-a {
-    text-decoration: none;
-    color: #1abc9c; /* New Primary Color: Teal */
+/* ===== HUD (bantların içindeki yazılar) ===== */
+.hud {
+    position: fixed; left: 0; width: 100%; height: var(--bar-h); z-index: 70;
+    display: flex; align-items: center; padding: 0 clamp(16px, 4vw, 48px);
 }
-a:hover { color: #16a085; /* Darker Teal on hover */ }
+.hud-top { top: 0; }
+.hud-top nav { display: flex; align-items: center; justify-content: space-between; width: 100%; }
+.nav-logo { font-family: var(--serif); font-size: 1.15rem; color: var(--text); }
+.nav-logo:hover { color: var(--accent); }
 
-/* Header ve Navigasyon */
-header {
-    background: #f8f9fa; /* Light gray navbar background */
-    color: #212529;
-    padding: 0.75rem 1rem; /* Adjusted padding */
-    text-align: center;
-    position: fixed; /* Fixed position */
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1030; /* Ensure it's above other content */
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05); /* Subtle shadow */
+#nav-links { list-style: none; display: flex; gap: 0.25rem; margin: 0; padding: 0; }
+#nav-links a {
+    font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--muted); padding: 0.5rem 0.75rem; border-radius: 4px; transition: color 0.3s;
 }
+#nav-links a:hover, #nav-links a.active-link { color: var(--accent); }
 
-header nav {
-    display: flex;
-    justify-content: space-between; /* For logo and menu items */
-    align-items: center;
-    max-width: 1140px; /* Standard container width, adjust as needed */
-    margin: 0 auto; /* Center the nav content */
-    padding: 0 15px; /* Padding for nav content if max-width is reached */
+.hud-bottom {
+    bottom: 0; gap: 1.5rem; justify-content: space-between;
+    font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted);
 }
+.scene-label { min-width: 13em; color: var(--text); }
+.progress { flex: 1; height: 1px; background: var(--line); max-width: 480px; }
+.progress-fill { display: block; height: 100%; background: var(--accent); transform-origin: left; transform: scaleX(0); }
+.progress-pct { min-width: 4em; text-align: right; font-variant-numeric: tabular-nums; }
 
-.nav-logo {
-    font-size: 1.5em;
-    font-weight: bold;
-    color: #212529;
-}
-.nav-logo:hover {
-    color: #1abc9c; /* New Primary Color: Teal */
-}
+.hamburger-menu { display: none; background: none; border: 0; padding: 10px; cursor: pointer; }
+.hamburger-bar { display: block; width: 22px; height: 2px; margin: 5px 0; background: var(--text); transition: transform 0.3s, opacity 0.3s; }
+.hamburger-menu.active .hamburger-bar:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger-menu.active .hamburger-bar:nth-child(2) { opacity: 0; }
+.hamburger-menu.active .hamburger-bar:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+body.no-scroll { overflow: hidden; }
 
-header nav ul {
-    padding: 0;
-    list-style: none;
-    display: flex; /* Horizontal by default */
-    align-items: center;
-    margin: 0; /* Remove default margin */
+/* ===== Butonlar ===== */
+.btn {
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    padding: 0.85rem 1.4rem; border-radius: 999px;
+    background: var(--accent); color: #111; font-weight: 600; font-size: 0.92rem;
+    border: 1px solid var(--accent);
+    /* translate/scale ayrı özellikler: GSAP'ın kullandığı transform ile çakışmaz */
+    transition: translate 0.25s, scale 0.25s, background 0.25s, color 0.25s;
 }
+.btn:hover { translate: 0 -3px; color: #111; }
+.btn:active { scale: 0.96; }
+.btn-ghost { background: transparent; color: var(--text); border-color: var(--line); }
+.btn-ghost:hover { color: var(--accent); border-color: var(--accent); }
 
-header nav ul li {
-    margin: 0 10px; /* Spacing for desktop */
-}
-
-header nav ul li a {
-    color: #212529;
-    text-decoration: none;
-    font-weight: 500; /* Slightly less bold */
-    transition: color 0.3s ease;
-    padding: 8px 12px;
-    border-radius: 4px;
-    font-size: 1em;
-    display: flex;
-    align-items: center;
+/* ===== Bölümler (genel) ===== */
+.scene { position: relative; min-height: 100vh; padding: calc(var(--bar-h) + 4rem) clamp(16px, 6vw, 96px); }
+.section-heading, .panel-heading {
+    font-family: var(--serif); font-weight: 400; line-height: 1.02;
+    font-size: clamp(2.6rem, 7vw, 6rem); margin: 0 0 2rem;
 }
 
-header nav ul li a:hover,
-header nav ul li a.active-link {
-    color: #1abc9c; /* New Primary Color: Teal */
-    background-color: rgba(26, 188, 156, 0.1); /* Subtle highlight with Teal */
+/* ===== 01: Giriş ===== */
+.hero { display: grid; place-items: center; text-align: center; overflow: hidden; padding: 0 16px; }
+.hero-iris {
+    position: absolute; inset: 0;
+    clip-path: circle(20% at 50% 45%);
+    transform-origin: 50% 45%;
 }
+.hero-photo {
+    width: 100%; height: 100%; object-fit: cover; object-position: center 47%;
+    filter: grayscale(0.6) brightness(0.55) contrast(1.1);
+}
+.hero-copy { position: relative; z-index: 2; }
+.hero-kicker { color: var(--accent); margin: 0 0 1rem; }
+.hero-title {
+    font-family: var(--serif); font-weight: 400; margin: 0;
+    font-size: clamp(2.8rem, 9vw, 8.5rem); line-height: 0.95; perspective: 600px;
+}
+.hero-line { display: block; }
+.hero-line.accent { font-style: italic; color: var(--accent); }
+.hero-role { color: var(--text); opacity: 0.8; margin: 1.5rem auto 0; max-width: 34em; }
+.hero-fade { position: absolute; inset: 0; background: var(--bg); opacity: 0; z-index: 3; pointer-events: none; }
 
-/* Main Content Wrapper */
-.main-content-wrapper {
-    background-color: #ffffff; /* White background for the content block */
-    margin-left: 250px;       /* 250px margin on the sides for desktop */
-    margin-right: 250px;
-    padding-top: 80px;        /* Adjust based on actual header height */
-    padding-left: 20px;       /* Inner padding */
-    padding-right: 20px;
-    padding-bottom: 40px;
-    box-shadow: 0 0 20px rgba(0,0,0,0.15); /* Shadow to lift content block */
-}
+/* Harf/kelime bölme (JS ekler) */
+.word { display: inline-block; white-space: nowrap; }
+.hero-title .word { overflow: hidden; padding: 0 0.04em 0.12em; }
+.char { display: inline-block; }
 
-/* Hero Bölümü - Will inherit white BG from body */
-#hero {
-    padding: 60px 0; /* Adjust padding, L/R padding from wrapper */
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    /* Remove specific background/border from here */
-    /* border-radius, margin-bottom, box-shadow might not be needed or adjusted */
-    margin-bottom: 0; /* Handled by wrapper or sections */
+/* ===== 02: Hakkımda ===== */
+.about { display: grid; place-items: center; }
+.about-inner { max-width: 1100px; }
+.about-text {
+    font-family: var(--serif); font-weight: 400; margin: 0;
+    /* vh: kısa ekranlarda metin + bilgiler tek ekrana sığsın */
+    font-size: clamp(1.1rem, min(3.4vw, 3.6vh), 3rem); line-height: 1.25;
 }
+.about-facts {
+    list-style: none; padding: 0; margin: min(3rem, 4vh) 0 0;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: min(1rem, 2vh) 1rem;
+    border-top: 1px solid var(--line); padding-top: min(1.5rem, 2.5vh);
+}
+.about-facts li { display: flex; flex-direction: column; gap: 0.2rem; font-size: 1.05rem; }
+.about-facts .mono { color: var(--muted); }
 
-.hero-content {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column; /* Stack on all sizes for this layout */
-    max-width: 700px;
+/* ===== 03: Projeler ===== */
+/* overflow: yatay şerit mobilde sayfa genişliğini büyütmesin */
+.projects { padding: 0; overflow: hidden; }
+.projects-track { display: flex; flex-direction: column; }
+.panel {
+    position: relative; min-height: 100vh;
+    padding: calc(var(--bar-h) + 3rem) clamp(16px, 6vw, 96px);
+    display: flex; flex-direction: column; justify-content: center;
 }
+.panel-lead { color: var(--muted); font-size: 1.1rem; }
+.panel-outro { align-items: flex-start; }
 
-.hero-image {
-    width: 200px; /* Adjusted size for light theme */
-    height: 200px;
-    border-radius: 50%;
-    margin-bottom: 20px; /* Space between image and text */
-    object-fit: cover;
-    border: 4px solid #dee2e6; /* Light gray border */
-    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+.project-panel {
+    flex-direction: row; align-items: center; gap: clamp(2rem, 6vw, 6rem);
+    background: radial-gradient(ellipse at 75% 50%, color-mix(in srgb, var(--tint) 45%, transparent), transparent 60%);
 }
+.project-copy { flex: 1 1 0; max-width: 560px; }
+.project-no { color: var(--accent); margin: 0 0 1rem; }
+.project-title { font-family: var(--serif); font-weight: 400; font-size: clamp(2.6rem, 6vw, 5.5rem); line-height: 1; margin: 0 0 1.5rem; }
+.project-desc { color: var(--text); opacity: 0.8; font-size: 1.05rem; margin: 0 0 1.5rem; }
+.chips { list-style: none; padding: 0; margin: 0 0 2rem; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.chips li { font-family: var(--mono); font-size: 0.72rem; padding: 0.35rem 0.75rem; border: 1px solid var(--line); border-radius: 999px; color: var(--muted); }
 
-.hero-content h1 { font-size: 2.5em; margin-bottom: 10px; color: #212529; }
-.hero-content p { font-size: 1.2em; margin-bottom: 20px; color: #495057; /* Slightly lighter dark gray */ }
+.mockup { flex: 0 0 auto; perspective: 1000px; }
 
-/* General Button Style */
-.btn, .contact-btn, .project-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background-color: #1abc9c; /* New Primary Color: Teal */
-    color: #ffffff;
-    padding: 12px 24px; /* Increased padding */
-    text-decoration: none;
-    border-radius: 6px; /* Slightly more rounded corners */
-    transition: background-color 0.2s ease, transform 0.15s ease-out, box-shadow 0.2s ease; /* Adjusted transition timing */
-    font-size: 1em;
-    font-weight: 500;
-    border: none; /* Remove border, rely on background and shadow */
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+/* Telefon (e-Medrese) */
+.phone {
+    width: 270px; aspect-ratio: 9 / 19; border-radius: 40px; padding: 14px;
+    border: 10px solid #1b1b1d; background: linear-gradient(170deg, #11392b, #08130f 70%);
+    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6); display: flex; flex-direction: column; gap: 12px;
+    font-size: 0.8rem; position: relative; overflow: hidden;
 }
+.phone-notch { width: 90px; height: 20px; background: #1b1b1d; border-radius: 0 0 14px 14px; margin: -14px auto 0; }
+.app-top { display: flex; justify-content: space-between; align-items: center; font-family: var(--serif); font-size: 1.1rem; color: var(--accent); }
+.app-hello { color: var(--text); opacity: 0.85; }
+.app-video {
+    height: 120px; border-radius: 14px; background: linear-gradient(135deg, #2b6b52, #0d2a20);
+    display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 8px; color: var(--text);
+}
+.app-video i { width: 38px; height: 38px; border-radius: 50%; background: var(--accent); color: #111; display: grid; place-items: center; }
+.app-section { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+.app-tasks { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.app-tasks li { background: rgba(255, 255, 255, 0.05); border-radius: 10px; padding: 9px 12px; display: flex; gap: 10px; align-items: center; }
+.app-tasks li.done i { color: var(--accent); }
+.app-nav { margin-top: auto; display: flex; justify-content: space-around; color: var(--muted); padding-top: 10px; border-top: 1px solid var(--line); }
+.app-nav i:first-child { color: var(--accent); }
 
-.btn:hover, .contact-btn:hover, .project-link:hover {
-    background-color: #16a085; /* Darker Teal on hover */
-    color: #ffffff;
-    transform: translateY(-3px); /* Increased lift on hover */
-    box-shadow: 0 5px 10px rgba(0,0,0,0.2); /* Enhanced shadow on hover */
+/* Tarayıcı (Portfolyo) */
+.browser {
+    width: min(520px, 42vw); border-radius: 12px; overflow: hidden; background: #111;
+    border: 1px solid var(--line); box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6);
 }
+.browser-bar { display: flex; align-items: center; gap: 6px; padding: 10px 14px; background: #1b1b1d; }
+.browser-bar i { width: 10px; height: 10px; border-radius: 50%; background: #3a3a3d; }
+.browser-bar span { margin-left: 12px; font-family: var(--mono); font-size: 0.7rem; color: var(--muted); }
+/* Sitenin küçük, soyut bir önizlemesi */
+.site-preview { padding: 18px; display: flex; flex-direction: column; gap: 18px; background: var(--bg); }
+.sp-nav { display: flex; justify-content: flex-end; gap: 8px; }
+.sp-nav span { width: 34px; height: 6px; border-radius: 3px; background: #2b2b2e; }
+.sp-hero { display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 18px 0; }
+.sp-avatar { width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(160deg, #3a3a3d, #1b1b1d); border: 2px solid var(--accent); }
+.sp-line { height: 12px; border-radius: 6px; background: var(--text); opacity: 0.85; }
+.sp-line.accent { background: var(--accent); opacity: 1; }
+.w60 { width: 60%; } .w40 { width: 40%; }
+.sp-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.sp-cards span { aspect-ratio: 4 / 3; border-radius: 8px; background: #1b1b1d; border: 1px solid var(--line); }
 
-.project-link { padding: 10px 20px; font-size: 0.9em; } /* Adjusted project link padding */
+/* ===== 04: Teknolojiler ===== */
+.skills { overflow: hidden; }
+.marquee { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center; gap: 2rem; pointer-events: none; opacity: 0.08; }
+.marquee-row {
+    white-space: nowrap; font-family: var(--serif); font-size: clamp(4rem, 12vw, 11rem); line-height: 1;
+    color: transparent; -webkit-text-stroke: 1px var(--text);
+}
+.skills-inner { position: relative; max-width: 1100px; margin: 0 auto; }
+.skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 1rem; perspective: 1000px; }
+.skill-card {
+    background: rgba(20, 20, 22, 0.75); backdrop-filter: blur(6px);
+    border: 1px solid var(--line); border-radius: 16px; padding: 1.5rem;
+}
+.skill-card h3 { font-family: var(--serif); font-weight: 400; font-size: 1.3rem; margin: 0 0 1rem; color: var(--accent); }
+.skill-card ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.4rem; }
+.skill-card li { padding: 0.5rem 0; border-bottom: 1px solid var(--line); }
+.skill-card li:last-child { border-bottom: 0; }
 
-.js-button-pressed {
-    transform: scale(0.95) translateY(1px); /* More pronounced press, subtle downward shift */
-    background-color: #117a65; /* Even Darker Teal when pressed */
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3); /* Inset shadow for pressed feel */
-}
+/* ===== 05: İletişim ===== */
+.contact { display: grid; place-items: center; text-align: center; }
+.finale-title { font-family: var(--serif); font-weight: 400; font-size: clamp(2.6rem, 7vw, 6rem); line-height: 1.02; margin: 0 0 1.5rem; }
+.finale-title em { color: var(--accent); }
+.finale-lead { color: var(--muted); margin: 0 0 2.5rem; }
+.contact-links { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; }
 
-/* Ortak Bölüm Stilleri */
-.section {
-    padding: 50px 0; /* Top/bottom padding, L/R from wrapper */
-    text-align: center;
-    /* background-color: transparent; Inherits body white */
-    /* border: none; Remove old borders */
-    /* margin-bottom: 0; Spacing controlled by padding or wrapper */
-}
+/* Footer iletişim bölümünün içinde: sayfa sonunda bölüm tam ekranı kaplar */
+footer { position: absolute; left: 0; bottom: calc(var(--bar-h) + 0.75rem); width: 100%; text-align: center; color: var(--muted); font-size: 0.75rem; }
+footer p { margin: 0; }
 
-.section h2 {
-    margin-bottom: 30px; /* More space for section titles */
-    font-size: 2.2em;
-    color: #343a40; /* Slightly different dark for headings */
-}
+/* ===== Hareket modu (JS + GSAP yüklüyse) ===== */
+.motion .projects-track { flex-direction: row; width: max-content; height: 100vh; }
+.motion .panel { width: 100vw; height: 100vh; min-height: 0; }
+.motion .panel-intro, .motion .panel-outro { width: 70vw; }
 
-/* Remove specific background/border from section IDs */
-#hakkimda, #projeler, #yetenekler, #iletisim {
-    background: none;
-    border: none;
-}
-
-/* Card Styles (Project & Skill) */
-.project-card, .skill-category {
-    background: #ffffff;
-    border: 1px solid #e9ecef; /* Light border */
-    padding: 25px;
-    border-radius: 0.3rem;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.075); /* Softer, more diffused shadow */
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    color: #212529;
-    margin-bottom: 20px; /* Add margin for spacing in grids */
-}
-
-.project-card:hover, .skill-category:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
-}
-
-.project-card h3, .skill-category h3 {
-    margin-top: 0;
-    margin-bottom: 15px;
-    color: #1abc9c; /* New Primary Color: Teal for card titles */
-}
-.project-card p, .skill-category ul {
-    color: #495057; /* Muted text for card content */
-}
-.skill-category ul { list-style: none; padding: 0; }
-.skill-category ul li {
-    background: #f8f9fa; /* Very light bg for list items */
-    color: #212529;
-    margin-bottom: 8px; padding: 10px;
-    border-radius: 0.25rem;
-    border: 1px solid #e9ecef;
-}
-
-/* Contact Section */
-.contact-links {
-    display: flex;
-    gap: 15px;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-
-/* Footer */
-footer {
-    text-align: center; padding: 30px 0;
-    background: #f8f9fa; /* Light gray footer */
-    color: #6c757d; /* Muted text */
-    border-top: 1px solid #e9ecef;
-}
-
-/* Hamburger Menu Icon Styles */
-.hamburger-menu {
-    display: none; /* Hidden on desktop */
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    padding: 10px; /* Padding to make it easier to click */
-    z-index: 1040; /* Higher than navbar content */
-    margin-left: 10px; /* Give some space if logo is long */
-}
-
-.hamburger-bar {
-    display: block;
-    width: 25px;
-    height: 3px;
-    background-color: #343a40; /* Dark color for bars */
-    margin: 5px 0;
-    transition: all 0.3s ease-in-out;
-}
-
-/* Hamburger animation to "X" */
-.hamburger-menu.active .hamburger-bar:nth-child(1) {
-    transform: translateY(8px) rotate(45deg);
-}
-.hamburger-menu.active .hamburger-bar:nth-child(2) {
-    opacity: 0;
-}
-.hamburger-menu.active .hamburger-bar:nth-child(3) {
-    transform: translateY(-8px) rotate(-45deg);
-}
-
-/* Responsive adjustments will be heavily modified */
-@media (max-width: 768px) {
-    .main-content-wrapper {
-        margin-left: 20px;
-        margin-right: 20px;
+/* ===== Duyarlı ===== */
+@media (max-width: 860px) {
+    .hamburger-menu { display: block; }
+    #nav-links {
+        position: fixed; inset: var(--bar-h) 0 0; flex-direction: column; justify-content: center; align-items: center; gap: 1rem;
+        background: rgba(0, 0, 0, 0.96); opacity: 0; visibility: hidden; transition: opacity 0.3s, visibility 0.3s;
     }
+    #nav-links.active { opacity: 1; visibility: visible; }
+    #nav-links a { font-size: 1rem; }
 
-    header nav {
-        padding: 0 10px; /* Reduce padding for smaller nav */
-    }
-    header nav ul#nav-links { /* Use ID for specificity */
-        display: none; /* Hidden by default */
-        flex-direction: column;
-        position: absolute;
-        top: 100%; /* Position below the header */
-        left: 0;
-        width: 100%;
-        background-color: #f8f9fa; /* Match header background */
-        border-top: 1px solid #e0e0e0;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        padding: 10px 0; /* Padding top/bottom for the dropdown */
-        align-items: center; /* Center li items */
-    }
-
-    header nav ul#nav-links.active {
-        display: flex; /* Show when active */
-    }
-
-    header nav ul#nav-links li {
-        margin: 10px 0; /* Vertical spacing */
-        width: 100%; /* Make li take full width for text-align to work */
-        text-align: center; /* Center the text within li */
-    }
-
-    header nav ul#nav-links li a {
-        padding: 12px 20px; /* Larger touch target */
-        display: block; /* Make link take full width of li */
-        width: 100%;
-        box-sizing: border-box; /* Include padding in width */
-    }
-    header nav ul#nav-links li:last-child a {
-        border-bottom: none;
-    }
-
-    header nav ul#nav-links li a:hover,
-    header nav ul#nav-links li a.active-link {
-        background-color: rgba(26, 188, 156, 0.15); /* Slightly stronger hover/active for mobile */
-    }
-
-    .hamburger-menu {
-        display: block; /* Show hamburger on mobile */
-    }
-
-    .hero-image {
-        width: 150px;
-        height: 150px;
-    }
-    #hero { padding: 40px 0; }
-    .hero-content h1 { font-size: 2em; }
-    .hero-content p { font-size: 1.1em; }
-    .section { padding: 40px 0; }
-    .section h2 { font-size: 1.8em; }
-    .contact-links {
-        flex-direction: column;
-        align-items: center;
-    }
-    .skills-grid {
-        grid-template-columns: 1fr;
-    }
+    .project-panel { flex-direction: column; justify-content: center; text-align: left; gap: 2rem; }
+    .project-copy { flex: 0 0 auto; }
+    .phone { width: 190px; font-size: 0.65rem; border-width: 7px; gap: 8px; }
+    .app-video { height: 80px; }
+    .browser { width: min(360px, 88vw); }
+    .motion .panel-intro, .motion .panel-outro { width: 100vw; }
+    .project-desc { font-size: 0.95rem; }
+    .chips { margin-bottom: 1.25rem; }
 }
 
-@media (max-width: 480px) {
-    .main-content-wrapper {
-        margin-left: 10px;  /* Further reduced margin for phones */
-        margin-right: 10px;
-        padding-top: 65px;
-        padding-left: 10px; /* Inner padding */
-        padding-right: 10px;
-        /* background-color: #ffffff; is inherited */
-        /* box-shadow: ...; can be simplified or removed if too heavy */
-    }
-    .hero-image {
-        width: 120px;
-        height: 120px;
-    }
-    #hero { padding: 30px 0; }
-    .hero-content h1 { font-size: 1.8em; }
-    .hero-content p { font-size: 1em; }
-    .section { padding: 30px 0; }
-    .section h2 { font-size: 1.6em; }
-    .btn, .contact-btn, .project-link { padding: 8px 15px; font-size: 0.9em; }
+@media (max-width: 600px) {
+    :root { --bar-h: 48px; }
+    .hud-bottom { gap: 0.75rem; font-size: 0.6rem; }
+    .scene-label { min-width: 0; }
+    .progress-pct { min-width: 0; }
+    .project-title { font-size: 2.4rem; margin-bottom: 0.75rem; }
+    .project-desc { font-size: 0.88rem; }
+    .project-panel { gap: 1.25rem; padding-top: calc(var(--bar-h) + 1.5rem); padding-bottom: calc(var(--bar-h) + 1rem); }
+    .chips li { font-size: 0.62rem; padding: 0.25rem 0.6rem; }
+    .phone { width: 130px; border-radius: 26px; padding: 10px; gap: 6px; font-size: 0.55rem; }
+    .phone-notch { width: 60px; height: 14px; margin-top: -10px; }
+    .app-top { font-size: 0.85rem; }
+    .app-video { height: 56px; }
+    .app-video i { width: 26px; height: 26px; }
+    .app-tasks li { padding: 6px 8px; }
+    .mockup.phone .app-tasks li:nth-child(3) { display: none; }
 }
 
-/* Scroll Animation (no change) */
-.animate-on-scroll { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
-.animate-on-scroll.visible {
-    opacity: 1;
-    transform: translateY(0);
+/* Dar ve kısa ekranda alt alta düzen sığmaz; görsel yerine metin öncelikli */
+@media (max-width: 860px) and (max-height: 700px) {
+    .mockup { display: none; }
 }
 
-/* Helper class to prevent body scroll when mobile menu is open */
-body.no-scroll {
-    overflow: hidden;
+/* Kısa ekranlar (yatay telefon, küçük telefon): her şey daha sıkı */
+@media (max-height: 600px) {
+    .about-text { font-size: clamp(0.95rem, min(3.4vw, 3.6vh), 2rem); }
+    .about-facts { grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); }
+    .about-facts li { font-size: 0.9rem; }
+    .finale-title { font-size: clamp(1.8rem, 9vh, 4rem); margin-bottom: 0.75rem; }
+    .finale-lead { margin-bottom: 1.25rem; }
+    .kicker { margin-bottom: 0.75rem; }
+    .skill-card { padding: 1rem 1.25rem; }
+    .skill-card h3 { margin-bottom: 0.5rem; }
+    .skill-card li { padding: 0.3rem 0; }
+}
+@media (max-height: 480px) {
+    :root { --bar-h: 40px; }
+    .panel, .project-panel { padding-top: calc(var(--bar-h) + 0.75rem); padding-bottom: calc(var(--bar-h) + 0.75rem); }
+    .project-no { margin-bottom: 0.4rem; }
+    .project-title { font-size: 1.5rem; margin-bottom: 0.4rem; }
+    .project-desc { font-size: 0.75rem; line-height: 1.4; margin-bottom: 0.5rem; }
+    .panel-heading { font-size: 2rem; margin-bottom: 1rem; }
+    /* Etiketler ve buton aynı satırda: dikey yer kazanmak için */
+    .project-copy { max-width: none; display: grid; grid-template-columns: 1fr auto; column-gap: 1rem; align-items: center; }
+    .project-copy > :not(.chips):not(.btn) { grid-column: 1 / -1; }
+    .project-copy .chips { margin-bottom: 0; }
+    .chips { margin-bottom: 0.75rem; gap: 0.3rem; }
+    .chips li { font-size: 0.6rem; padding: 0.2rem 0.5rem; }
+    .btn { padding: 0.55rem 1rem; font-size: 0.8rem; }
+    .scene { padding-top: calc(var(--bar-h) + 1.5rem); padding-bottom: calc(var(--bar-h) + 1.5rem); }
+    .finale-lead { display: none; }
 }
 
-.skills-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-    max-width: 800px;
-    margin: 0 auto;
+@media (prefers-reduced-motion: reduce) {
+    .grain { animation: none; }
 }

@@ -4,9 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mirhat Muhammed UĞUZLU - Portfolyom</title>
-    <link rel="stylesheet" href="style.css">
+    <meta name="description" content="Mirhat Muhammed UĞUZLU — Bilgisayar Mühendisliği öğrencisi, mobil ve backend geliştirici. Projeler, kullandığım teknolojiler ve iletişim.">
     <link rel="icon" href="turtleicon.jpg" type="image/jpeg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-W9SDPJSQ9C"></script>
@@ -19,10 +23,16 @@
     </script>
 </head>
 <body>
-    <header>
+    <!-- Üst/alt siyah bantlar, gren ve vinyet -->
+    <div class="bar bar-top" aria-hidden="true"></div>
+    <div class="bar bar-bottom" aria-hidden="true"></div>
+    <div class="grain" aria-hidden="true"></div>
+    <div class="vignette" aria-hidden="true"></div>
+
+    <header class="hud hud-top">
         <nav>
             <a href="#iletisim" class="nav-logo">Mirhat UĞUZLU</a>
-            <button class="hamburger-menu" aria-label="Menüyü aç/kapat" aria-expanded="false">
+            <button class="hamburger-menu" aria-label="Menüyü aç/kapat" aria-expanded="false" aria-controls="nav-links">
                 <span class="hamburger-bar"></span>
                 <span class="hamburger-bar"></span>
                 <span class="hamburger-bar"></span>
@@ -30,90 +40,168 @@
             <ul id="nav-links">
                 <li><a href="#hakkimda">Hakkımda</a></li>
                 <li><a href="#projeler">Projeler</a></li>
-                <li><a href="#yetenekler">Yetenekler</a></li>
+                <li><a href="#teknolojiler">Teknolojiler</a></li>
                 <li><a href="#iletisim">İletişim</a></li>
             </ul>
         </nav>
     </header>
 
-    <div class="main-content-wrapper">
-        <section id="hero">
-            <div class="hero-content">
-                <img src="profilphoto.jpg" alt="Mirhat Muhammed UĞUZLU Fotoğrafı" class="hero-image">
-                <div>
-                    <h1>Merhaba, Ben Mirhat Muhammed UĞUZLU</h1>
+    <div class="hud hud-bottom" aria-hidden="true">
+        <span class="scene-label">01 · Giriş</span>
+        <span class="progress"><span class="progress-fill"></span></span>
+        <span class="progress-pct">0%</span>
+    </div>
+
+    <main>
+        <section id="giris" class="scene hero" data-label="01 · Giriş">
+            <div class="hero-iris">
+                <img src="profilphoto.jpg" alt="Mirhat Muhammed UĞUZLU Fotoğrafı" class="hero-photo">
+            </div>
+            <div class="hero-copy">
+                <p class="hero-kicker mono">Portfolyo</p>
+                <h1 class="hero-title">
+                    <span class="hero-line">Mirhat Muhammed</span>
+                    <span class="hero-line accent">UĞUZLU</span>
+                </h1>
+                <p class="hero-role">Bilgisayar Mühendisliği öğrencisi · Mobil &amp; Backend geliştirici</p>
+            </div>
+            <div class="hero-fade" aria-hidden="true"></div>
+        </section>
+
+        <section id="hakkimda" class="scene about" data-label="02 · Hakkımda">
+            <div class="about-inner">
+                <p class="kicker mono about-kicker">02 — Hakkımda</p>
+                <p class="about-text">
+                    Merhaba! Ben Harran Üniversitesi Bilgisayar Mühendisliği öğrencisiyim.
+                    Yazılım geliştirmeye, özellikle web, mobil ve arka uç alanlarına büyük bir ilgi duyuyorum.
+                    Problem çözmeye ve yeni teknolojiler öğrenmeye hevesliyim.
+                    Bu site, eğitimim boyunca edindiğim bilgi ve tecrübeleri, geliştirdiğim projeleri sergilemek için oluşturuldu.
+                </p>
+                <ul class="about-facts">
+                    <li><span class="mono">Okul</span>Harran Üniversitesi</li>
+                    <li><span class="mono">Bölüm</span>Bilgisayar Mühendisliği</li>
+                    <li><span class="mono">Odak</span>Web · Mobil · Backend</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="projeler" class="scene projects" data-label="03 · Projeler">
+            <div class="projects-track">
+                <article class="panel panel-intro">
+                    <p class="kicker mono">03 — Projeler</p>
+                    <h2 class="panel-heading">Projelerim</h2>
+                    <p class="panel-lead">Geliştirdiğim ve üzerinde çalıştığım projeler.</p>
+                </article>
+
+                <article class="panel project-panel" style="--tint: #1f6f54">
+                    <div class="project-copy">
+                        <p class="project-no mono reveal">01 / e-Medrese</p>
+                        <h3 class="project-title reveal">e-Medrese</h3>
+                        <p class="project-desc reveal">
+                            Online dini kursları izlemeyi ve medreselerde yapılan görevlerin elektronik olarak takibini kolaylaştıran mobil uygulama.
+                            Video ve sesli dersler, PDF kitaplar, anlık bildirimler ve Google ile giriş tek uygulamada.
+                        </p>
+                        <ul class="chips reveal">
+                            <li>Flutter</li><li>Dart</li><li>Riverpod</li><li>Supabase</li>
+                            <li>Firebase FCM</li><li>go_router</li><li>Hive</li>
+                        </ul>
+                        <a href="https://github.com/mirhatuguzlu/e-medrese" target="_blank" rel="noopener" class="btn reveal"><i class="fab fa-github"></i> GitHub'da Görüntüle</a>
+                    </div>
+                    <div class="mockup phone" aria-hidden="true">
+                        <div class="phone-notch"></div>
+                        <div class="app-top"><span>e-Medrese</span><i class="fas fa-bell"></i></div>
+                        <div class="app-hello">Hoş geldin 👋</div>
+                        <div class="app-video"><i class="fas fa-play"></i><span>Fıkıh Dersi · Bölüm 12</span></div>
+                        <div class="app-section">Bugünkü görevler</div>
+                        <ul class="app-tasks">
+                            <li class="done"><i class="fas fa-check"></i> Sabah dersi</li>
+                            <li class="done"><i class="fas fa-check"></i> Ezber takibi</li>
+                            <li><i class="far fa-circle"></i> Kitap okuma</li>
+                        </ul>
+                        <div class="app-nav"><i class="fas fa-house"></i><i class="fas fa-book-open"></i><i class="fas fa-list-check"></i><i class="fas fa-user"></i></div>
+                    </div>
+                </article>
+
+                <article class="panel project-panel" style="--tint: #8a5a1c">
+                    <div class="project-copy">
+                        <p class="project-no mono reveal">02 / Portfolyo</p>
+                        <h3 class="project-title reveal">Portfolyo Sitem</h3>
+                        <p class="project-desc reveal">
+                            Şu an incelediğin site. Projelerimi ve kullandığım teknolojileri, kaydırmaya bağlı akıcı animasyonlarla sergileyen kişisel portfolyo.
+                            Derleme adımı olmadan GitHub Pages üzerinde çalışır.
+                        </p>
+                        <ul class="chips reveal">
+                            <li>HTML</li><li>CSS</li><li>JavaScript</li><li>GSAP ScrollTrigger</li><li>Lenis</li>
+                        </ul>
+                        <a href="https://github.com/mirhatuguzlu/mirhatuguzlu.github.io" target="_blank" rel="noopener" class="btn reveal"><i class="fab fa-github"></i> GitHub'da Görüntüle</a>
+                    </div>
+                    <div class="mockup browser" aria-hidden="true">
+                        <div class="browser-bar"><i></i><i></i><i></i><span>mirhatuguzlu.github.io</span></div>
+                        <div class="site-preview">
+                            <div class="sp-nav"><span></span><span></span><span></span></div>
+                            <div class="sp-hero"><span class="sp-avatar"></span><span class="sp-line w60"></span><span class="sp-line w40 accent"></span></div>
+                            <div class="sp-cards"><span></span><span></span><span></span></div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="panel panel-outro">
+                    <p class="kicker mono">Diğer çalışmalarım</p>
+                    <h2 class="panel-heading">Tüm repolarım<br>GitHub'da.</h2>
+                    <a href="https://github.com/mirhatuguzlu" target="_blank" rel="noopener" class="btn btn-ghost"><i class="fab fa-github"></i> GitHub Profilim</a>
+                </article>
+            </div>
+        </section>
+
+        <section id="teknolojiler" class="scene skills" data-label="04 · Teknolojiler">
+            <div class="marquee" aria-hidden="true">
+                <div class="marquee-row row-a">Java · C++ · Dart · Flutter · Spring Boot · MySQL · Supabase · Java · C++ · Dart · Flutter ·</div>
+                <div class="marquee-row row-b">Linux · Windows · Firebase · JavaScript · Git · HTML · CSS · Linux · Windows · Firebase ·</div>
+            </div>
+            <div class="skills-inner">
+                <p class="kicker mono">04 — Teknolojiler</p>
+                <h2 class="section-heading">Kullandığım Teknolojiler</h2>
+                <div class="skills-grid">
+                    <div class="skill-card">
+                        <h3>Programlama Dilleri</h3>
+                        <ul><li>Java</li><li>C++</li><li>Dart</li><li>JavaScript</li></ul>
+                    </div>
+                    <div class="skill-card">
+                        <h3>Frameworkler &amp; Kütüphaneler</h3>
+                        <ul><li>Spring Boot</li><li>Flutter</li><li>Riverpod</li></ul>
+                    </div>
+                    <div class="skill-card">
+                        <h3>Veritabanı &amp; Bulut</h3>
+                        <ul><li>SQL (MySQL)</li><li>Supabase</li><li>Firebase</li></ul>
+                    </div>
+                    <div class="skill-card">
+                        <h3>İşletim Sistemleri &amp; Araçlar</h3>
+                        <ul><li>Windows</li><li>Linux</li><li>Git &amp; GitHub</li></ul>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <section id="hakkimda" class="section">
-            <h2>Hakkımda</h2>
-            <p>
-                Merhaba! Ben Harran Üniversitesi Bilgisayar Mühendisliği 2. sınıf öğrencisiyim.
-                Yazılım geliştirmeye, özellikle Web Geliştirme ve Arka Uç alanlarına büyük bir ilgi duyuyorum. Problem çözmeye ve yeni teknolojiler öğrenmeye hevesliyim.
-                Bu portfolyo sitesi, eğitimim boyunca edindiğim bilgi ve tecrübelerimi, geliştirdiğim projeleri
-                sergilemek için oluşturulmuştur.
-            </p>
-        </section>
-
-        <section id="projeler" class="section">
-            <h2>Projelerim</h2>
-            <div class="project-grid">
-                <div class="project-card">
-                    <h3>Portfolyo sitem</h3>
-                    <p>Bu proje, projelerimi sergileyebileceğim bir alan olması için geliştirilmiştir. Kullanılan teknolojiler: HTML, CSS, JavaScript.</p>
-                    <a href="https://github.com/mirhatuguzlu/mirhatuguzlu.github.io" target="_blank" class="project-link">GitHub'da Görüntüle</a>
+        <section id="iletisim" class="scene contact" data-label="05 · İletişim">
+            <div class="finale">
+                <p class="kicker mono">05 — İletişim</p>
+                <h2 class="finale-title">Birlikte<br><em>çalışalım.</em></h2>
+                <p class="finale-lead">Benimle iletişime geçmek için aşağıdaki yolları kullanabilirsin.</p>
+                <div class="contact-links">
+                    <a href="mailto:mirhatmuhammeduguzlu@gmail.com" class="btn"><i class="fas fa-envelope"></i> E-posta Gönder</a>
+                    <a href="https://linkedin.com/in/mirhat-muhammed-uğuzlu-b24bb9295" target="_blank" rel="noopener" class="btn btn-ghost"><i class="fab fa-linkedin"></i> LinkedIn</a>
+                    <a href="https://github.com/mirhatuguzlu" target="_blank" rel="noopener" class="btn btn-ghost"><i class="fab fa-github"></i> GitHub</a>
                 </div>
             </div>
+            <footer>
+                <p>&copy; 2026 dev.mirhat Tüm Hakları Saklıdır.</p>
+            </footer>
         </section>
+    </main>
 
-        <section id="yetenekler" class="section">
-            <h2>Yeteneklerim</h2>
-            <div class="skills-grid">
-                <div class="skill-category">
-                    <h3>İşletim Sistemleri</h3>
-                    <ul>
-                        <li>Windows</li>
-                        <li>Linux</li>
-                    </ul>
-                </div>
-                <div class="skill-category">
-                    <h3>Programlama Dilleri</h3>
-                    <ul>
-                        <li>JAVA</li>
-                        <li>C++</li>
-                    </ul>
-                </div>
-                <div class="skill-category">
-                    <h3>Frameworkler & Kütüphaneler</h3>
-                    <ul>
-                        <li>Spring Boot</li>
-                    </ul>
-                </div>
-                <div class="skill-category">
-                    <h3>Veritabanları</h3>
-                    <ul>
-                        <li>SQL (MySQL)</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <section id="iletisim" class="section">
-            <h2>İletişim</h2>
-            <p>Benimle iletişime geçmek için aşağıdaki yolları kullanabilirsiniz.</p>
-            <div class="contact-links">
-                <a href="mailto:mirhatmuhammeduguzlu@gmail.com" class="contact-btn"><i class="fas fa-envelope"></i> E-posta Gönder</a>
-                <a href="https://linkedin.com/in/mirhat-muhammed-uğuzlu-b24bb9295" target="_blank" class="contact-btn"><i class="fab fa-linkedin"></i> LinkedIn</a>
-                <a href="https://github.com/mirhatuguzlu" target="_blank" class="contact-btn"><i class="fab fa-github"></i> GitHub</a>
-            </div>
-        </section>
-    </div> 
-
-    <footer>
-        <p>&copy; 2025 dev.mirhat Tüm Hakları Saklıdır.</p>
-    </footer>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
