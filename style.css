@@ -179,6 +179,9 @@ body.no-scroll { overflow: hidden; }
 .chips { list-style: none; padding: 0; margin: 0 0 2rem; display: flex; flex-wrap: wrap; gap: 0.5rem; }
 .chips li { font-family: var(--mono); font-size: 0.72rem; padding: 0.35rem 0.75rem; border: 1px solid var(--line); border-radius: 999px; color: var(--muted); }
 
+.project-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+.apk-note { color: var(--muted); font-size: 0.65rem; margin: 0.75rem 0 0; text-transform: none; }
+
 .mockup { flex: 0 0 auto; perspective: 1000px; }
 
 /* Telefon (e-Medrese) */
@@ -321,7 +324,9 @@ footer p { margin: 0; }
     .panel-heading { font-size: 2rem; margin-bottom: 1rem; }
     /* Etiketler ve buton aynı satırda: dikey yer kazanmak için */
     .project-copy { max-width: none; display: grid; grid-template-columns: 1fr auto; column-gap: 1rem; align-items: center; }
-    .project-copy > :not(.chips):not(.btn) { grid-column: 1 / -1; }
+    .project-copy > :not(.chips):not(.btn):not(.project-actions) { grid-column: 1 / -1; }
+    .apk-note { margin-top: 0.15rem; font-size: 0.58rem; }
+    .project-no { font-size: 0.65rem; }
     .project-copy .chips { margin-bottom: 0; }
     .chips { margin-bottom: 0.75rem; gap: 0.3rem; }
     .chips li { font-size: 0.6rem; padding: 0.2rem 0.5rem; }
