@@ -78,22 +78,34 @@ document.addEventListener('DOMContentLoaded', function () {
         .from('.about-facts li', { opacity: 0, y: 30, stagger: 0.25 });
 
     // ===== 03: yatay kayan projeler =====
-    const track = document.querySelector('.projects-track');
-    const distance = () => track.scrollWidth - window.innerWidth;
-    const hScroll = gsap.to(track, {
-        x: () => -distance(),
-        ease: 'none',
-        scrollTrigger: { trigger: '#projeler', start: 'top top', end: () => '+=' + distance(), scrub: 1, pin: true, invalidateOnRefresh: true }
+    // Telefonda dikey kaydırma yana dönünce insanlar içgüdüsel olarak sola kaydırıyor; dar ekranda projeler alt alta akar.
+    const mm = gsap.matchMedia();
+    mm.add('(min-width: 861px)', () => {
+        document.documentElement.classList.add('hscroll');
+        const track = document.querySelector('.projects-track');
+        const distance = () => track.scrollWidth - window.innerWidth;
+        const hScroll = gsap.to(track, {
+            x: () => -distance(),
+            ease: 'none',
+            scrollTrigger: { trigger: '#projeler', start: 'top top', end: () => '+=' + distance(), scrub: 1, pin: true, invalidateOnRefresh: true }
+        });
+        gsap.utils.toArray('.project-panel').forEach(panel => {
+            gsap.from(panel.querySelectorAll('.reveal'), {
+                y: 70, opacity: 0, stagger: 0.08,
+                scrollTrigger: { trigger: panel, containerAnimation: hScroll, start: 'left 80%', end: 'left 20%', scrub: 1 }
+            });
+            gsap.fromTo(panel.querySelector('.mockup'), { xPercent: 25, rotateY: -28, rotateZ: 4 }, {
+                xPercent: -15, rotateY: 14, rotateZ: -2, ease: 'none',
+                scrollTrigger: { trigger: panel, containerAnimation: hScroll, start: 'left right', end: 'right left', scrub: true }
+            });
+        });
+        return () => document.documentElement.classList.remove('hscroll');
     });
-    gsap.utils.toArray('.project-panel').forEach(panel => {
-        gsap.from(panel.querySelectorAll('.reveal'), {
-            y: 70, opacity: 0, stagger: 0.08,
-            scrollTrigger: { trigger: panel, containerAnimation: hScroll, start: 'left 80%', end: 'left 20%', scrub: 1 }
-        });
-        gsap.fromTo(panel.querySelector('.mockup'), { xPercent: 25, rotateY: -28, rotateZ: 4 }, {
-            xPercent: -15, rotateY: 14, rotateZ: -2, ease: 'none',
-            scrollTrigger: { trigger: panel, containerAnimation: hScroll, start: 'left right', end: 'right left', scrub: true }
-        });
+    mm.add('(max-width: 860px)', () => {
+        gsap.utils.toArray('.project-panel').forEach(panel => gsap.from(panel.querySelectorAll('.reveal'), {
+            y: 50, opacity: 0, stagger: 0.08,
+            scrollTrigger: { trigger: panel, start: 'top 80%', end: 'top 30%', scrub: 1 }
+        }));
     });
     gsap.from('.panel-intro .panel-heading', {
         xPercent: -20, opacity: 0,
