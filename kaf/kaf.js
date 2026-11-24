@@ -8,10 +8,84 @@
   const menuDugme = document.querySelector('.menu-dugme');
   const menu = document.getElementById('menu');
   if (menuDugme && menu) {
-    const ac = (v) => { menu.classList.toggle('acik', v); menuDugme.setAttribute('aria-expanded', String(v)); };
-    menuDugme.addEventListener('click', () => ac(!menu.classList.contains('acik')));
+    // Dar ekran: "Bölümler"e bas → menü açılır; parmağı bölüme sürükleyip bırak → oraya atlar.
+    // Kısa dokunuş menüyü açık bırakır (dokunarak seçilir); klavyede Enter/Boşluk açar, oklar gezer, Esc kapatır.
+    const linkler = [...menu.querySelectorAll('a')];
+    linkler.forEach((a, i) => a.style.setProperty('--i', i));
+    const perde = document.createElement('div');
+    perde.className = 'perde';
+    document.body.append(perde);
+    const acikMi = () => menu.classList.contains('acik');
+    let secili = null;
+    const sec = (a) => {
+      if (a === secili) return;
+      secili?.classList.remove('secili');
+      secili = a;
+      if (a) { a.classList.add('secili'); navigator.vibrate?.(8); }
+    };
+    const ac = (v) => {
+      menu.classList.toggle('acik', v);
+      perde.classList.toggle('acik', v);
+      menuDugme.setAttribute('aria-expanded', String(v));
+      if (!v) { sec(null); return; }
+      // Şu an ekrandaki bölümü işaretle.
+      const y = (parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--ust-h')) || 57) + 40;
+      let suan = null;
+      for (const a of linkler) {
+        a.removeAttribute('aria-current');
+        const el = a.hash && document.getElementById(a.hash.slice(1));
+        if (el && el.getBoundingClientRect().top <= y) suan = a;
+      }
+      suan?.setAttribute('aria-current', 'true');
+    };
+    // Parmağın altındaki bölüm; açılış animasyonu sürerken de doğru olsun diye dönüşümsüz yerleşime (offset*) bakar.
+    const altindaki = (x, y) => {
+      const kok = (menu.offsetParent || document.body).getBoundingClientRect();
+      const sol = kok.left + menu.offsetLeft, ust0 = kok.top + menu.offsetTop;
+      if (x < sol || x > sol + menu.offsetWidth) return null;
+      return linkler.find((a) => y >= ust0 + a.offsetTop && y < ust0 + a.offsetTop + a.offsetHeight) || null;
+    };
+    let basla = 0, acikti = false;
+    menuDugme.addEventListener('pointerdown', (e) => {
+      if (e.button) return;
+      e.preventDefault();
+      try { menuDugme.setPointerCapture(e.pointerId); } catch {}
+      basla = performance.now();
+      acikti = acikMi();
+      ac(true);
+    });
+    menuDugme.addEventListener('pointermove', (e) => {
+      if (!basla) return;
+      sec(altindaki(e.clientX, e.clientY));
+    });
+    menuDugme.addEventListener('pointerup', (e) => {
+      if (!basla) return;
+      const kisa = performance.now() - basla < 350;
+      basla = 0;
+      sec(altindaki(e.clientX, e.clientY)); // hızlı sürüklemede son hareket kaçmış olabilir
+      if (secili) { const a = secili; ac(false); a.click(); return; }
+      if (kisa) { if (acikti) ac(false); return; } // dokunuş: açıksa kapat, değilse açık kalsın
+      ac(false);
+    });
+    menuDugme.addEventListener('pointercancel', () => { basla = 0; ac(false); });
+    menuDugme.addEventListener('contextmenu', (e) => e.preventDefault());
+    menuDugme.addEventListener('click', (e) => {
+      if (e.detail !== 0) return; // fare ve dokunuş yukarıda işlendi; burası klavye
+      ac(!acikMi());
+      if (acikMi()) linkler[0].focus();
+    });
     menu.addEventListener('click', (e) => { if (e.target.closest('a')) ac(false); });
-    addEventListener('keydown', (e) => { if (e.key === 'Escape' && menu.classList.contains('acik')) { ac(false); menuDugme.focus(); } });
+    perde.addEventListener('click', () => ac(false));
+    addEventListener('keydown', (e) => {
+      if (!acikMi()) return;
+      if (e.key === 'Escape') { ac(false); menuDugme.focus(); return; }
+      if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp') return;
+      e.preventDefault();
+      const n = linkler.length;
+      const i = linkler.indexOf(document.activeElement);
+      const j = i < 0 ? (e.key === 'ArrowDown' ? 0 : n - 1) : (i + (e.key === 'ArrowDown' ? 1 : n - 1)) % n;
+      linkler[j].focus();
+    });
   }
 
   const kapiRenk = ['#c27c45', '#c3cbd4', '#e0b252', '#9ad8ea', '#a7adb6', '#b09ce0', '#4fc795'];

@@ -47,7 +47,7 @@ pre { margin: 0; font-family: var(--mono); }
 .ust nav a:hover { color: var(--parsomen); }
 .indir { font-weight: 600; color: var(--murekkep); background: var(--altin); text-decoration: none; padding: 7px 16px; border-radius: 999px; line-height: 1.2; }
 .indir:hover { background: color-mix(in srgb, var(--altin) 85%, white); }
-.menu-dugme { display: none; }
+.menu-dugme, .ipucu, .perde { display: none; }
 [id] { scroll-margin-top: calc(var(--ust-h, 53px) + 8px); }
 
 /* Ortak sütunlar */
@@ -241,18 +241,40 @@ p { margin: 0 0 1em; }
   .merdiven button::before { width: 22px; height: 28px; border-radius: 11px 11px 0 0; }
 }
 @media (max-width: 760px) {
-  .ust { position: sticky; }
   .marka { margin-right: auto; }
-  .menu-dugme { display: block; font: 600 16px/1.2 var(--serif); color: var(--parsomen); background: none; border: 1px solid var(--cizgi); border-radius: 999px; padding: 6px 14px; cursor: pointer; order: 3; }
-  .menu-dugme[aria-expanded="true"] { border-color: var(--altin); }
-  .ust nav { display: none; position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; gap: 0; padding: 6px 16px 14px; background: var(--murekkep); border-bottom: 1px solid var(--cizgi); }
-  .ust nav.acik { display: flex; }
-  .ust nav a { padding: 12px 0; border-bottom: 1px solid color-mix(in srgb, var(--cizgi) 50%, transparent); }
   .indir-kutu { flex-direction: column; align-items: flex-start; gap: 18px; }
-}
-@media (max-width: 400px) {
-  .marka { font-size: 15px; }
-  .indir { padding: 6px 12px; }
+
+  /* Bölümler: bas, açılsın; parmağı bir bölümün üstüne sürükleyip bırak, oraya atlasın. Dokunup seçmek de olur. */
+  .menu-dugme {
+    display: block; order: 3; cursor: pointer;
+    font: 600 16px/1.2 var(--serif); color: var(--parsomen);
+    background: none; border: 1px solid var(--cizgi); border-radius: 999px; padding: 8px 16px;
+    touch-action: none; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none;
+    transition: transform .15s ease, border-color .15s ease, background .15s ease;
+  }
+  .menu-dugme[aria-expanded="true"] { border-color: var(--altin); background: var(--murekkep-2); transform: scale(.94); }
+  .ust nav {
+    position: fixed; top: calc(var(--ust-h, 57px) + 8px); right: 16px; margin: 0;
+    width: min(260px, calc(100vw - 32px));
+    display: flex; flex-direction: column; gap: 2px; padding: 8px;
+    background: var(--murekkep-2); border: 1px solid var(--cizgi); border-radius: 20px;
+    box-shadow: 0 24px 60px -12px rgba(0, 0, 0, .7);
+    transform-origin: calc(100% - 40px) -12px;
+    opacity: 0; visibility: hidden; transform: scale(.6) translateY(-10px);
+    transition: opacity .16s ease, transform .2s ease, visibility 0s .2s;
+  }
+  .ust nav.acik { opacity: 1; visibility: visible; transform: none; transition: opacity .16s ease, transform .32s cubic-bezier(.2, 1.3, .4, 1); }
+  .ust nav a {
+    padding: 13px 16px; border-radius: 13px; font-size: 19px; color: var(--parsomen);
+    opacity: 0; transform: translateY(-6px);
+    transition: opacity .2s ease, transform .2s ease, background .12s ease, color .12s ease;
+  }
+  .ust nav.acik a { opacity: 1; transform: none; transition-delay: calc(var(--i, 0) * 35ms), calc(var(--i, 0) * 35ms), 0s, 0s; }
+  .ust nav a[aria-current="true"] { color: var(--altin); }
+  .ust nav a.secili { background: var(--altin); color: var(--murekkep); transform: scale(1.03); }
+  .ipucu { display: block; margin: 2px 16px 6px; font-size: 14px; font-style: italic; color: var(--soluk); }
+  .perde { display: block; position: fixed; inset: 0; z-index: 9; background: rgba(5, 8, 15, .55); backdrop-filter: blur(2px); opacity: 0; visibility: hidden; transition: opacity .2s ease, visibility 0s .2s; }
+  .perde.acik { opacity: 1; visibility: visible; transition: opacity .2s ease; }
 }
 @media (max-width: 640px) {
   body { font-size: 18px; }
