@@ -1,161 +1,101 @@
-document.addEventListener('DOMContentLoaded', function () {
-    // --- Hamburger menü ---
-    const hamburgerMenu = document.querySelector('.hamburger-menu');
-    const navLinks = document.getElementById('nav-links');
-    const closeMenu = () => {
-        hamburgerMenu.classList.remove('active');
-        navLinks.classList.remove('active');
-        hamburgerMenu.setAttribute('aria-expanded', 'false');
-        document.body.classList.remove('no-scroll');
+(() => {
+    const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const $ = (s, r = document) => r.querySelector(s);
+    const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+    const E = 'cubic-bezier(.2,.8,.2,1)';
+
+    // ---- Giriş: bir kez çalışır; font/foto gecikirse 2.5 sn sonra yine başlar ----
+    let entered = false;
+    function enter() {
+        if (entered) return;
+        entered = true;
+        if (RM) { $$('.title .line, .in, .hero-photo').forEach(el => { el.style.transform = 'none'; el.style.opacity = 1; }); return; }
+        const anim = (el, kf, o) => el.animate(kf, { fill: 'both', easing: E, ...o });
+        $$('.title .line').forEach((l, i) => anim(l, [{ transform: 'translateY(150%)' }, { transform: 'none' }], { duration: 1000, delay: 120 + i * 110 }));
+        anim($('.hero-photo'), [{ opacity: 0, translate: '0 40px', filter: 'grayscale(1) blur(12px)' }, { opacity: 1, translate: '0 0', filter: 'grayscale(1) contrast(1.08) brightness(1.04)' }], { duration: 1300 });
+        $$('.in').forEach((el, i) => anim(el, [{ opacity: 0, translate: '0 14px' }, { opacity: 1, translate: '0 0' }], { duration: 700, delay: 300 + i * 55 }));
+        anim($('.r-line i'), [{ transform: 'scaleX(0)' }, { transform: 'scaleX(.62)' }], { duration: 1400, delay: 900 });
+        $$('.stats [data-count]').forEach(countUp);
+    }
+    const photo = $('.hero-photo');
+    Promise.race([
+        Promise.all([document.fonts ? document.fonts.ready : 0, photo.complete ? 0 : new Promise(r => { photo.onload = photo.onerror = r; })]),
+        new Promise(r => setTimeout(r, 2500))
+    ]).then(() => requestAnimationFrame(enter));
+    setTimeout(enter, 4000);
+
+    // ---- Sayaç ----
+    function countUp(el) {
+        const to = +el.dataset.count;
+        if (RM) return void (el.textContent = to);
+        const t0 = performance.now();
+        const tick = t => {
+            const p = Math.min(1, (t - t0) / 1400);
+            el.textContent = Math.round(to * (1 - Math.pow(1 - p, 3)));
+            if (p < 1) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+    }
+    const io = new IntersectionObserver(es => es.forEach(e => {
+        if (!e.isIntersecting) return;
+        $$('[data-count]', e.target).forEach(countUp);
+        io.unobserve(e.target);
+    }), { threshold: .35 });
+    io.observe($('.t-cards'));
+
+    // ---- Kayan siyah hap menü ----
+    const nav = $('.pillnav'), bg = $('.pill-bg'), links = $$('a', nav);
+    let active = links[0];
+    const moveTo = a => {
+        bg.style.width = a.offsetWidth + 'px';
+        bg.style.transform = `translateX(${a.offsetLeft}px)`;
+        links.forEach(l => l.classList.toggle('hot', l === a));
     };
-    hamburgerMenu.addEventListener('click', function () {
-        const open = !navLinks.classList.contains('active');
-        this.classList.toggle('active', open);
-        navLinks.classList.toggle('active', open);
-        this.setAttribute('aria-expanded', String(open));
-        document.body.classList.toggle('no-scroll', open);
+    links.forEach(a => {
+        a.addEventListener('mouseenter', () => moveTo(a));
+        a.addEventListener('focus', () => moveTo(a));
+        a.addEventListener('click', () => { active = a; });
     });
-    navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+    nav.addEventListener('mouseleave', () => moveTo(active));
+    addEventListener('resize', () => moveTo(active));
+    (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => moveTo(active));
 
-    // Hareket azaltma tercih edilmişse ya da CDN yüklenemediyse site düz, okunur bir sayfa olarak kalır.
-    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (reduce || !window.gsap || !window.ScrollTrigger) return;
+    // ---- Manifesto: kelimeler okuma sırasıyla griden beyaza dolar ----
+    const fill = $('.fill');
+    const text = fill.textContent.trim();
+    fill.setAttribute('aria-label', text);
+    fill.innerHTML = text.split(/\s+/).map(w => `<span class="w" aria-hidden="true">${w}</span>`).join(' ');
+    const words = $$('.w', fill);
 
-    document.documentElement.classList.add('motion');
-    gsap.registerPlugin(ScrollTrigger);
+    // ---- Kaydırmaya bağlı her şey tek rAF'ta ----
+    const cards = $$('.proj');
+    let ticking = false;
+    function onScroll() {
+        ticking = false;
+        const vh = innerHeight, y = scrollY;
+        if (!RM) photo.style.transform = `translateY(${y * .12}px)`;
 
-    // --- Lenis: yumuşak kaydırma, GSAP ile aynı saatte çalışır ---
-    let lenis = null;
-    if (window.Lenis) {
-        lenis = new Lenis({ lerp: 0.08 });
-        lenis.on('scroll', ScrollTrigger.update);
-        gsap.ticker.add(t => lenis.raf(t * 1000));
-        gsap.ticker.lagSmoothing(0);
+        const r = fill.getBoundingClientRect();
+        // shortcut: doğrusal ilerleme; paragraf ekranın %85'inden %35'ine gelirken dolar
+        const p = RM ? 1 : Math.min(1, Math.max(0, (vh * .85 - r.top) / (r.height + vh * .5)));
+        const n = p * (words.length + 3);
+        words.forEach((w, i) => {
+            const k = Math.min(1, Math.max(0, (n - i) / 3)); // 3 kelimelik yumuşak kenar
+            const c = Math.round(111 + (244 - 111) * k);
+            w.style.color = `rgb(${c},${c},${c})`;
+        });
+
+        // Yapışkan kartlar: üstüne binen kart geldikçe alttaki hafifçe küçülür
+        if (!RM && innerWidth > 760) cards.forEach((c, i) => {
+            const next = cards[i + 1];
+            if (!next) return;
+            const d = next.getBoundingClientRect().top - c.getBoundingClientRect().top;
+            const q = Math.min(1, Math.max(0, 1 - d / c.offsetHeight));
+            c.style.transform = `scale(${1 - q * .06})`;
+            c.style.filter = `brightness(${1 - q * .45})`;
+        });
     }
-    document.querySelectorAll('a[href^="#"]').forEach(link => {
-        link.addEventListener('click', e => {
-            const target = document.querySelector(link.getAttribute('href'));
-            if (!target) return;
-            e.preventDefault();
-            lenis ? lenis.scrollTo(target, { duration: 1.8 }) : target.scrollIntoView({ behavior: 'smooth' });
-        });
-    });
-
-    // --- Metni harf/kelime span'lerine böl (ekran okuyucu için aria-label korunur) ---
-    function split(el, byChar) {
-        const text = el.textContent.trim().replace(/\s+/g, ' ');
-        el.setAttribute('aria-label', text);
-        el.innerHTML = text.split(' ').map(w =>
-            `<span class="word" aria-hidden="true">${byChar ? [...w].map(c => `<span class="char">${c}</span>`).join('') : w}</span>`
-        ).join(' ');
-        return el.querySelectorAll(byChar ? '.char' : '.word');
-    }
-
-    // ===== Giriş animasyonu (sayfa yüklenince) =====
-    const heroChars = [];
-    document.querySelectorAll('.hero-line').forEach(l => heroChars.push(...split(l, true)));
-
-    gsap.timeline({ defaults: { ease: 'expo.out' } })
-        .from('.bar-top, .bar-bottom', { scaleY: 6, duration: 1.4, ease: 'expo.inOut' })
-        .from('.hero-iris', { scale: 0, duration: 1.8, ease: 'expo.inOut' }, 0.2)
-        .from('.hero-kicker', { opacity: 0, y: 20, duration: 1 }, 0.9)
-        .from(heroChars, { yPercent: 110, rotateX: -70, opacity: 0, stagger: 0.035, duration: 1.2 }, 1.0)
-        .from('.hero-role', { opacity: 0, y: 16, duration: 1 }, '-=0.6')
-        .from('.hud', { opacity: 0, duration: 1 }, '<');
-
-    // ===== 01: fotoğraf çerçevesi açılır, isim kayar, kararır =====
-    gsap.timeline({ scrollTrigger: { trigger: '#giris', start: 'top top', end: '+=130%', scrub: 1, pin: true } })
-        .to('.hero-iris', { clipPath: 'circle(80% at 50% 45%)', ease: 'none' }, 0)
-        .to('.hero-photo', { scale: 1.15, filter: 'grayscale(1) brightness(0.3) contrast(1.1)', ease: 'none' }, 0)
-        .to('.hero-copy', { yPercent: -40, scale: 0.92, opacity: 0, ease: 'power1.in' }, 0.1)
-        .to('.hero-fade', { opacity: 1 }, 0.65);
-
-    // ===== 02: kelimeler sırayla belirginleşir =====
-    const aboutWords = split(document.querySelector('.about-text'), false);
-    gsap.timeline({ scrollTrigger: { trigger: '#hakkimda', start: 'top top', end: '+=160%', scrub: 1, pin: true } })
-        .from('.about-kicker', { opacity: 0, y: 30 })
-        .fromTo(aboutWords, { opacity: 0.12 }, { opacity: 1, stagger: 0.1, ease: 'none' })
-        .from('.about-facts li', { opacity: 0, y: 30, stagger: 0.25 });
-
-    // ===== 03: yatay kayan projeler =====
-    // Telefonda dikey kaydırma yana dönünce insanlar içgüdüsel olarak sola kaydırıyor; dar ekranda projeler alt alta akar.
-    const mm = gsap.matchMedia();
-    mm.add('(min-width: 861px)', () => {
-        document.documentElement.classList.add('hscroll');
-        const track = document.querySelector('.projects-track');
-        const distance = () => track.scrollWidth - window.innerWidth;
-        const hScroll = gsap.to(track, {
-            x: () => -distance(),
-            ease: 'none',
-            scrollTrigger: { trigger: '#projeler', start: 'top top', end: () => '+=' + distance(), scrub: 1, pin: true, invalidateOnRefresh: true }
-        });
-        gsap.utils.toArray('.project-panel').forEach(panel => {
-            gsap.from(panel.querySelectorAll('.reveal'), {
-                y: 70, opacity: 0, stagger: 0.08,
-                scrollTrigger: { trigger: panel, containerAnimation: hScroll, start: 'left 80%', end: 'left 20%', scrub: 1 }
-            });
-            gsap.fromTo(panel.querySelector('.mockup'), { xPercent: 25, rotateY: -28, rotateZ: 4 }, {
-                xPercent: -15, rotateY: 14, rotateZ: -2, ease: 'none',
-                scrollTrigger: { trigger: panel, containerAnimation: hScroll, start: 'left right', end: 'right left', scrub: true }
-            });
-        });
-        return () => document.documentElement.classList.remove('hscroll');
-    });
-    mm.add('(max-width: 860px)', () => {
-        gsap.utils.toArray('.project-panel').forEach(panel => gsap.from(panel.querySelectorAll('.reveal'), {
-            y: 50, opacity: 0, stagger: 0.08,
-            scrollTrigger: { trigger: panel, start: 'top 80%', end: 'top 30%', scrub: 1 }
-        }));
-    });
-    gsap.from('.panel-intro .panel-heading', {
-        xPercent: -20, opacity: 0,
-        scrollTrigger: { trigger: '#projeler', start: 'top 70%', end: 'top top', scrub: 1 }
-    });
-
-    // ===== 04: kayan dev yazılar + teknoloji kartları =====
-    gsap.to('.row-a', { xPercent: -35, ease: 'none', scrollTrigger: { trigger: '#teknolojiler', start: 'top bottom', end: 'bottom top', scrub: 1 } });
-    gsap.fromTo('.row-b', { xPercent: -35 }, { xPercent: 0, ease: 'none', scrollTrigger: { trigger: '#teknolojiler', start: 'top bottom', end: 'bottom top', scrub: 1 } });
-    gsap.from('.skills-inner .kicker, .skills-inner .section-heading', {
-        y: 60, opacity: 0, stagger: 0.1,
-        scrollTrigger: { trigger: '.skills-inner', start: 'top 85%', end: 'top 45%', scrub: 1 }
-    });
-    gsap.from('.skill-card', {
-        y: 120, rotateX: -35, opacity: 0, stagger: 0.12,
-        scrollTrigger: { trigger: '.skills-grid', start: 'top 90%', end: 'top 35%', scrub: 1 }
-    });
-
-    // ===== 05: iletişim içeriği yukarı süzülerek gelir =====
-    gsap.from('.finale > *', {
-        y: 60, opacity: 0, stagger: 0.12,
-        scrollTrigger: { trigger: '#iletisim', start: 'top 75%', end: 'top 20%', scrub: 1 }
-    });
-
-    // ===== Alt bant: bölüm adı, aktif menü ve ilerleme =====
-    const label = document.querySelector('.scene-label');
-    const menuLinks = document.querySelectorAll('#nav-links a');
-    document.querySelectorAll('.scene').forEach(scene => {
-        // Sabitlenen bölümlerde pin-spacer, sabit kalınan süreyi de kapsar
-        const spacer = scene.parentElement.classList.contains('pin-spacer') ? scene.parentElement : scene;
-        ScrollTrigger.create({
-            trigger: spacer, start: 'top center', end: 'bottom center',
-            onToggle: self => {
-                if (!self.isActive) return;
-                label.textContent = scene.dataset.label;
-                menuLinks.forEach(a => a.classList.toggle('active-link', a.getAttribute('href') === '#' + scene.id));
-            }
-        });
-    });
-
-    const fill = document.querySelector('.progress-fill');
-    const pct = document.querySelector('.progress-pct');
-    ScrollTrigger.create({
-        start: 0, end: 'max',
-        onUpdate: self => {
-            fill.style.transform = `scaleX(${self.progress})`;
-            pct.textContent = Math.round(self.progress * 100) + '%';
-        }
-    });
-
-    // Fontlar yüklenince ölçüler değişir; pin noktalarını yeniden hesapla
-    document.fonts && document.fonts.ready.then(() => ScrollTrigger.refresh());
-});
+    addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } }, { passive: true });
+    addEventListener('resize', onScroll);
+    onScroll();
+})();
