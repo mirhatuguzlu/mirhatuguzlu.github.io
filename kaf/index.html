@@ -4,44 +4,221 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Kaf'ın Yedi Kapısı</title>
-  <meta name="description" content="Anadolu masallarından bir metin macerası: yedi kapı, bilmeceler, zar ve kılıç.">
+  <meta name="description" content="Anadolu masallarından, tamamen Türkçe bir metin macerası: yedi kapı, zar, kılıç ve bilmeceler.">
+  <meta name="theme-color" content="#0f1626">
+  <meta property="og:title" content="Kaf'ın Yedi Kapısı">
+  <meta property="og:description" content="Anadolu masallarından, tamamen Türkçe bir metin macerası.">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400;0,600;0,700;1,400&family=Roboto+Mono:wght@400;500&display=swap">
   <link rel="stylesheet" href="stil.css">
+  <script>document.documentElement.classList.add('js')</script>
 </head>
 <body>
-<main>
-  <nav>
-    <a href="./">Oyun</a>
-    <a href="gizlilik.html">Gizlilik politikası</a>
+<a class="atla" href="#icerik">İçeriğe geç</a>
+<header class="ust">
+  <a class="marka" href="./" aria-label="Kaf'ın Yedi Kapısı, ana sayfa"><pre aria-hidden="true">   /\
+  /  \
+ /_/\_\</pre>Kaf'ın Yedi Kapısı</a>
+  <nav aria-label="Site">
+    <a href="./" aria-current="page">Oyun</a>
+    <a href="gizlilik.html">Gizlilik</a>
     <a href="hesap-silme.html">Hesap silme</a>
   </nav>
+</header>
 
-  <h1>Kaf'ın Yedi Kapısı</h1>
-  <p class="alt">Anadolu masallarından bir metin macerası: yedi kapı, bilmeceler, zar ve kılıç.</p>
+<main id="icerik">
+  <section class="acilis" aria-labelledby="baslik">
+    <div>
+      <pre class="dag" role="img" aria-label="Kaf Dağı: eteklerinden zirveye yedi kapı, zirvede parlayan Zümrüdüanka">
+                    .                .
+       *                           \|/                .
+                                 -- @ --
+   .              *                /^\          *
+                                  /   \
+           .                     / [ ] \               .
+                                /       \
+                     *         /   [ ]   \      *
+                       /\     /           \
+              .       /  \   /  [ ]        \   /\
+                     /    \_/        [ ]    \_/  \
+          /\        /          [ ]            \   \     .
+         /  \      /       [ ]                 \   \
+   _____/    \____/   [ ]                       \   \______
+</pre>
+      <h1 id="baslik">Kaf'ın Yedi Kapısı</h1>
+      <p class="alt">Anadolu masallarından, tamamen Türkçe bir metin macerası.</p>
+      <div class="eylem">
+        <a class="dugme" href="#yolculuk">Nasıl oynanır</a>
+        <span class="yakinda">Android için yakında Google Play'de</span>
+      </div>
+    </div>
+  </section>
 
-  <p>Köyünü Sessizlik sardı. Ne bir türkü kaldı ne bir horoz sesi. Derler ki çalınan yedi ses, Kaf Dağı'nın yedi
-  kapısındaki yedi bekçide saklı. Dağın zirvesinde Zümrüdüanka bekliyor; ama oraya varan pek olmamış.</p>
+  <section class="masal sutun" aria-label="Hikâye">
+    <p>Evvel zaman içinde, kalbur saman içinde, bir köye Sessizlik çöktü. Ne horoz öter oldu ne değirmen döner;
+    analar ninni söyleyemez oldu.</p>
+    <p class="soluk">Derler ki çalınan yedi ses, Kaf Dağı'nın yedi kapısındaki yedi bekçide saklı. Dağın zirvesinde
+    Zümrüdüanka bekliyor. Yola çıkan çok oldu; dönen az.</p>
+  </section>
 
-  <p>Kaf'ın Yedi Kapısı, tamamen Türkçe, metin tabanlı bir roguelite oyunudur. Her yolculuk farklıdır; ölürsen köye
-  dönersin, ama her seferinde biraz daha bilgili ve güçlü.</p>
+  <section class="sutun kapilar-bas" aria-labelledby="kapilar-baslik">
+    <h2 id="kapilar-baslik">Yedi kapı, yedi diyar</h2>
+    <p>Her kapının ardında kendi kuralı olan bir diyar var. Kapıyı geçmek için önündeki bekçiyi yenmen gerek.</p>
+  </section>
+  <section class="kapilar sutun" aria-label="Kapılar">
+    <div class="sahne">
+      <ol class="merdiven" aria-label="Kapıya git"></ol>
+      <ol class="liste">
+        <li class="kapi" style="--kc:#c27c45"><pre aria-hidden="true">
+  ^    ^    ^    ^    ^
+ /|\  /|\  /|\  /|\  /|\
+ /|\ ~~~~~~~~~~~~~~~ /|\
+~~~~~~~~~~ sis ~~~~~~~~~~</pre>
+          <div><span class="sira">1. kapı</span><h3>Bakır Kapı</h3><p class="diyar">Sisli orman</p>
+          <p>Patikalar birbirine dolanır. Sis yolunu şaşırtır, bir adım ötesini göremezsin.</p></div></li>
+        <li class="kapi" style="--kc:#c3cbd4"><pre aria-hidden="true">
+    _________________
+   /  .    *    .    \
+  |    ___________    |
+  |   |     |     |   |
+~~~~~~~~~~~~~~~~~~~~~~~~~</pre>
+          <div><span class="sira">2. kapı</span><h3>Gümüş Kapı</h3><p class="diyar">Yerin yedi kat altındaki madenler</p>
+          <p>Gün ışığı hiç doğmamış. Her odada bir meşalen yanıp tükenir; meşalesiz kalan karanlıkta kalır.</p></div></li>
+        <li class="kapi" style="--kc:#e0b252"><pre aria-hidden="true">
+         \  |  /
+       --  (O)  --
+  _.--.    /|\    .--._
+_/     \_________/     \_</pre>
+          <div><span class="sira">3. kapı</span><h3>Altın Kapı</h3><p class="diyar">Uçsuz bucaksız çöl</p>
+          <p>Her odada kırbandan bir yudum gider. Ufukta vahalar titreşir, ama hepsi gerçek değildir.</p></div></li>
+        <li class="kapi" style="--kc:#9ad8ea"><pre aria-hidden="true">
+    *     /\      *
+  *      /  \    /\   *
+     /\ / /\ \  /  \
+ ___/  \_/  \_\/____\___</pre>
+          <div><span class="sira">4. kapı</span><h3>Billur Kapı</h3><p class="diyar">Ayaz Ana'nın buzulu</p>
+          <p>Burada soğuk kılıçtan hızlıdır. Ayaz, dövüşte iliklerine işler ve seni yavaşlatır.</p></div></li>
+        <li class="kapi" style="--kc:#a7adb6"><pre aria-hidden="true">
+ |-|_|-|         |-|_|-|
+ |     |_________|     |
+ |  []     ___     []  |
+ |________|   |________|</pre>
+          <div><span class="sira">5. kapı</span><h3>Demir Kapı</h3><p class="diyar">Devler için yapılmış kale</p>
+          <p>Tuzaklı koridorlar, sürgülü kapılar. Kimi kilidin anahtarını kalenin içinde bulman gerek.</p></div></li>
+        <li class="kapi" style="--kc:#b09ce0"><pre aria-hidden="true">
+  .-------.   .-------.
+ (  o   o  ) (  o   o  )
+  '-------' | '-------'
+    ayna    |    anya</pre>
+          <div><span class="sira">6. kapı</span><h3>Gölge Kapı</h3><p class="diyar">Ters dünya</p>
+          <p>Kökler gökte, yağmur yerden göğe yağar. Yollar bile yalan söyler: seçtiğin, bazen seçmediğin olur.</p></div></li>
+        <li class="kapi" style="--kc:#4fc795"><pre aria-hidden="true">
+            /\
+       __  /  \  __
+      /  \/ ** \/  \
+ ____/    \    /    \____</pre>
+          <div><span class="sira">7. kapı</span><h3>Zümrüt Kapı</h3><p class="diyar">Kaf'ın zirvesi</p>
+          <p>Bütün diyarların laneti burada bir arada. Ötesini anlatmayalım; sen gör.</p></div></li>
+      </ol>
+    </div>
+  </section>
+  <p class="sutun bekci-notu">Bekçilerin kim olduğunu kapıya varınca öğrenirsin.</p>
 
-  <h2>Neler var</h2>
-  <ul>
-    <li>Yedi kapı, yedi diyar ve çok aşamalı yedi bekçi</li>
-    <li>172 Türk bilmecesi, 52 olay, 45 düşman</li>
-    <li>Beş kahraman: Yiğit, Derviş, Kalpazan, Ozan ve gizli bir sınıf</li>
-    <li>Köy Meydanı geliştirmeleri, 41 başarım, Kahramanlık Defteri</li>
-    <li>Altı mod: Hikâye, Sonsuz Zindan, Günün Meydan Okuması, Bilmece Düellosu, Demir Yürek, Talim Meydanı</li>
-    <li>Yazı boyutu, tema, yüksek kontrast ve ekran okuyucu desteği</li>
-  </ul>
+  <section class="bolum" id="yolculuk" aria-labelledby="yolculuk-baslik">
+    <div class="sutun">
+      <h2 id="yolculuk-baslik">Bir yolculuk nasıl geçer</h2>
+      <p class="giris">Her yolculuk baştan kurulur: odalar, olaylar ve düşmanlar her seferinde başka dizilir.</p>
+      <div class="yolculuk">
+        <ol class="adimlar">
+          <li><b>Kahramanını seç</b><span>Her kahraman başka bir yoldan vurur: kimi kılıçla, kimi sözle, kimi el çabukluğuyla.</span></li>
+          <li><b>Kapıdan geç, odaları dolaş</b><span>Diyarın haritasında oda oda ilerlersin. Bir odada olay, birinde savaş, birinde bilmece, birinde dinlenecek bir ocak çıkar.</span></li>
+          <li><b>Seç ve zar at</b><span>Kararını sen verirsin; sonucunu zar belirler. Yirmi yüzlü zara ilgili yeteneğini eklersin, hedefi tutturursan başarırsın.</span></li>
+          <li><b>Bekçiyi yen</b><span>Diyarın sonunda kapının bekçisi seni bekler. Yenersen bir ses kurtarır, sonraki kapıya geçersin.</span></li>
+          <li><b>Düşersen köye dön</b><span>Ölüm son değil. Yolda topladığın tüylerle Köy Meydanı'nı geliştirirsin; bir sonraki yolculuğa biraz daha güçlü başlarsın.</span></li>
+        </ol>
 
-  <h2>Bilmen gerekenler</h2>
-  <ul>
-    <li>Oyun internet bağlantısı ister: kayıtların misafir hesabına bağlı olarak sunucuda (AB) tutulur.</li>
-    <li>Reklam içerir. Tek seferlik "Reklamları kaldır" satın alımı geçiş ve banner reklamlarını kaldırır.</li>
-    <li>Android için Google Play'de.</li>
-  </ul>
+        <div class="oda" aria-labelledby="oda-baslik">
+          <h3 id="oda-baslik">Bir oda dene</h3>
+          <div class="durum" aria-hidden="true"><span>Can <b id="can">18/20</b></span><span>Altın <b id="altin">12</b></span><span>Bakır Kapı</span></div>
+          <p class="anlat" id="anlat">Patika ikiye ayrılıyor. Soldan bir su sesi geliyor; sağda, sisin içinde bir fener sallanıyor.</p>
+          <p class="zar-satir" id="zar" aria-live="polite"></p>
+          <p class="sonuc" id="sonuc" aria-live="polite"></p>
+          <div class="secimler" id="secimler">
+            <button class="secim" type="button" data-stat="Çeviklik" data-bonus="2" data-hedef="11"
+              data-iyi="Kayalardan seke seke dereye iniyorsun, kırbanı dolduruyorsun." data-iyi-etki="can:+2"
+              data-kotu="Yosunlu taşta ayağın kayıyor; dizini sertçe vuruyorsun." data-kotu-etki="can:-3">
+              <span>Su sesine in</span><small>Çeviklik, hedef 11</small></button>
+            <button class="secim" type="button" data-stat="Akıl" data-bonus="1" data-hedef="14"
+              data-iyi="Fener bir çobanın. Yol sorduğun için sevinip sana birkaç akçe veriyor." data-iyi-etki="altin:+5"
+              data-kotu="Fener birden sönüyor; sisin ortasında yolunu kaybediyorsun." data-kotu-etki="can:-2">
+              <span>Fenerin peşine düş</span><small>Akıl, hedef 14</small></button>
+          </div>
+          <p class="not">Bu oda yalnızca örnek; oyundaki olaylar bundan çok daha fazla.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  <footer>Geliştirici: Mirhat Muhammed Uğuzlu · <a href="../">mirhatuguzlu.github.io</a></footer>
+  <section class="bolum" aria-labelledby="kahraman-baslik">
+    <div class="sutun">
+      <h2 id="kahraman-baslik">Kahramanlar</h2>
+      <p class="giris">Yola ikisiyle başlarsın. Diğerleri yolda kendini gösterir.</p>
+      <ul class="kahramanlar">
+        <li class="kahraman"><h3>Yiğit</h3><span class="vurus">Güçle vurur</span>
+          <p>Köyün pehlivanı. Canı yüksek, kalkanı sağlam; darbeleri göğüsler.</p><span class="kilit">Baştan açık</span></li>
+        <li class="kahraman"><h3>Derviş</h3><span class="vurus">Akılla vurur</span>
+          <p>Tekkeden çıkma bilge. Asasıyla değil sözüyle vurur; bilmecelerde ipucu sezer.</p><span class="kilit">Baştan açık</span></li>
+        <li class="kahraman"><h3>Kalpazan</h3><span class="vurus">Çeviklikle vurur</span>
+          <p>Çarşının en hızlı eli. Kritik vuruşları ve tuzak sezgisiyle bilinir; düşmanın cebini boşaltır.</p><span class="kilit">Yolda açılır</span></li>
+        <li class="kahraman"><h3>Ozan</h3><span class="vurus">Çeviklikle vurur</span>
+          <p>Sazıyla diyar diyar gezen âşık. Destanıyla coşar, sözüyle düşmanı şaşırtır.</p><span class="kilit">Yolda açılır</span></li>
+        <li class="kahraman muhurlu"><h3 aria-label="Gizli kahraman">???</h3><span class="vurus">Mühürlü</span>
+          <p>Kaf'ın bir köşesinde iz bırakmış biri. Kim olduğunu, onu bulan bilir.</p><span class="kilit">Gizli</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="bolum" aria-labelledby="mod-baslik">
+    <div class="sutun">
+      <h2 id="mod-baslik">Altı yol</h2>
+      <dl class="modlar">
+        <div><dt>Hikâye</dt><dd>Yedi kapıyı aş, Zümrüdüanka'ya ulaş. Üç kayıt yuvası, üç farklı son.</dd></div>
+        <div><dt>Sonsuz Zindan</dt><dd>Bitmeyen katlar; derinleştikçe düşmanlar güçlenir. Rekorunu kır.</dd></div>
+        <div><dt>Günün Meydan Okuması</dt><dd>Her gün herkese aynı yolculuk, tek deneme. Sonucunu paylaş.</dd></div>
+        <div><dt>Bilmece Düellosu</dt><dd>Süre bitmeden bilebildiğin kadar bilmece; doğru bildikçe kombo artar.</dd></div>
+        <div><dt>Demir Yürek</dt><dd>Tek canla Hikâye: kayıt yok, ikinci şans yok. Hikâyeyi bir kez bitirince açılır.</dd></div>
+        <div><dt>Talim Meydanı</dt><dd>Hayal perdesindeki gölgelerle dövüş, kahramanlarını tanı.</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="bolum" aria-labelledby="bilgi-baslik">
+    <div class="sutun">
+      <h2 id="bilgi-baslik">Bilmen gerekenler</h2>
+      <div class="bilgi">
+        <div><h3>İnternet gerekir</h3><p>Kayıtların, ad ya da e-posta istemeyen bir misafir hesapla AB'deki sunucuda tutulur. İstersen Google hesabına bağlayıp başka telefonda sürdürürsün.</p></div>
+        <div><h3>Reklam içerir</h3><p>Ücretsizdir. Tek seferlik "Reklamları kaldır" satın alımı geçiş ve banner reklamlarını kapatır; ödüllü reklamlar hep isteğe bağlıdır.</p></div>
+        <div><h3>Herkes için</h3><p>Yazı boyutu, açık ve koyu tema, yüksek kontrast, azaltılmış hareket ve ekran okuyucu desteği.</p></div>
+      </div>
+    </div>
+  </section>
 </main>
+
+<footer class="alt-bilgi">
+  <div class="sutun">
+    <div>
+      <p>Kaf'ın Yedi Kapısı'nı Mirhat Muhammed Uğuzlu geliştiriyor.</p>
+      <p><a href="mailto:dev.mirhat@gmail.com">dev.mirhat@gmail.com</a></p>
+    </div>
+    <nav aria-label="Yasal">
+      <a href="gizlilik.html">Gizlilik politikası</a>
+      <a href="hesap-silme.html">Hesap ve veri silme</a>
+      <a href="../">Diğer uygulamalarım</a>
+    </nav>
+  </div>
+</footer>
+<script src="kaf.js"></script>
 </body>
 </html>
