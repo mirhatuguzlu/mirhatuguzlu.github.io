@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Siber Kalkan — Siber güvenliği oynayarak öğren</title>
+  <meta name="description" content="Siber Kalkan: oltalama, güvenlik duvarı, terminal, parola, kriptografi ve olay müdahalesini 6 mini oyunla öğreten Türkçe eğitici oyun.">
+  <meta name="theme-color" content="#0A1628">
+  <meta property="og:title" content="Siber Kalkan">
+  <meta property="og:description" content="Gölge Ağ saldırıyor. KSOM'a stajyer olarak katıl, 6 mini oyunla siber güvenliği öğren.">
+  <meta property="og:image" content="simge.png">
+  <link rel="icon" href="favicon.png">
+  <link rel="preload" href="fonts/JetBrainsMono.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="sahne">
+    <h1 class="gizli-metin">Siber Kalkan — terminal</h1>
+    <section class="pencere" aria-label="Siber Kalkan terminali">
+      <div class="baslik-cubugu" aria-hidden="true">
+        <span class="isik"><i></i><i></i><i></i></span>
+        <span>stajyer@ksom: ~</span>
+        <span class="durum">kalkan aktif</span>
+      </div>
+
+      <div class="ekran" id="ekran" role="log" aria-live="polite" tabindex="-1">
+        <noscript>
+          <div class="satir">Siber Kalkan, siber güvenliği 6 mini oyunla öğreten Türkçe eğitici bir oyundur.</div>
+          <div class="satir">Bu terminal JavaScript ister. Belgeler: <a href="gizlilik.html">Gizlilik</a> · <a href="kullanim-sartlari.html">Kullanım şartları</a> · <a href="hesap-silme.html">Hesap silme</a></div>
+        </noscript>
+      </div>
+
+      <form class="komut-satiri" id="form" autocomplete="off">
+        <label for="girdi" class="istem">stajyer@ksom:<span class="yol" id="istem-yol">~</span>$</label>
+        <input id="girdi" name="komut" type="text" enterkeyhint="send" spellcheck="false" autocapitalize="none"
+               autocorrect="off" placeholder="bir komut yaz… (help)" aria-describedby="dokun-aciklama">
+      </form>
+
+      <nav class="dokun" id="dokun" aria-label="Hızlı komutlar">
+        <span id="dokun-aciklama" class="gizli-metin">Yazmak istemezsen bu düğmeler komutu senin yerine yazar.</span>
+        <button type="button" class="vurgu" data-calistir="rehber">rehber</button>
+        <button type="button" data-calistir="help">help</button>
+        <button type="button" data-calistir="cat hikaye.txt">hikâye</button>
+        <button type="button" data-calistir="ls oyunlar">oyunlar</button>
+        <button type="button" data-calistir="ls modlar">modlar</button>
+        <button type="button" data-calistir="cat rutbeler.txt">rütbeler</button>
+        <button type="button" data-calistir="cat sss.txt">sss</button>
+        <button type="button" data-calistir="./indir.sh">indir</button>
+        <button type="button" data-calistir="temizle">temizle</button>
+      </nav>
+    </section>
+
+    <footer class="alt">
+      <a href="gizlilik.html">gizlilik</a>
+      <a href="kullanim-sartlari.html">kullanım şartları</a>
+      <a href="hesap-silme.html">hesap silme</a>
+      <a href="../">geliştirici</a>
+      <span>© 2026 Siber Kalkan</span>
+    </footer>
+  </main>
+  <script src="terminal.js"></script>
+</body>
+</html>

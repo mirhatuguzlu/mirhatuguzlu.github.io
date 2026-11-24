@@ -1,0 +1,186 @@
+@font-face { font-family: "JetBrains Mono"; src: url("fonts/JetBrainsMono.ttf") format("truetype"); font-weight: 100 800; font-display: swap; }
+@font-face { font-family: "Inter"; src: url("fonts/Inter.ttf") format("truetype"); font-weight: 100 900; font-display: swap; }
+
+/* Uygulamanın renkleri (lib/app/theme.dart). Site yalnızca koyu temalıdır, uygulama gibi. */
+:root {
+  color-scheme: dark;
+  --zemin: #0A1628;
+  --yuzey: #112240;
+  --yuzey-ust: #1A2F52;
+  --cizgi: #23406B;
+  --camgobegi: #22D3EE;
+  --kehribar: #FFB020;
+  --tehlike: #FF4D5E;
+  --basari: #34D399;
+  --metin: #E6F1FF;
+  --soluk: #8892B0;
+  --mono: "JetBrains Mono", ui-monospace, Consolas, monospace;
+  --sans: "Inter", system-ui, sans-serif;
+  /* Kalkan imleci: sivri ucu (16,30) değil, üst ortası (16,3) tıklama noktası; ok gibi yukarıdan işaret eder. */
+  --imlec: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpath d='M16 2 28 6.5v8.2c0 7.3-5 12.6-12 15.3C9 27.3 4 22 4 14.7V6.5Z' fill='%230A1628' stroke='%2322D3EE' stroke-width='2.2' stroke-linejoin='round'/%3E%3Cpath d='m11 15.5 3.6 3.6L21.5 12' fill='none' stroke='%2322D3EE' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") 16 3, auto;
+  --imlec-el: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpath d='M16 2 28 6.5v8.2c0 7.3-5 12.6-12 15.3C9 27.3 4 22 4 14.7V6.5Z' fill='%2322D3EE' stroke='%23E6F1FF' stroke-width='1.6' stroke-linejoin='round'/%3E%3Cpath d='m11 15.5 3.6 3.6L21.5 12' fill='none' stroke='%230A1628' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") 16 3, pointer;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body, input, button, textarea, label { cursor: var(--imlec); }
+a, button, [data-komut], summary { cursor: var(--imlec-el); }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  min-height: 100dvh;
+  background: var(--zemin);
+  color: var(--metin);
+  font: 400 16px/1.6 var(--sans);
+}
+a { color: var(--camgobegi); text-underline-offset: 3px; }
+a:hover { color: var(--metin); }
+:focus-visible { outline: 2px solid var(--kehribar); outline-offset: 3px; border-radius: 4px; }
+::selection { background: var(--camgobegi); color: var(--zemin); }
+.gizli-metin { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* ---------- Alt bilgi (her sayfada; Play incelemesi bu bağlantıları arar) ---------- */
+.alt {
+  display: flex; flex-wrap: wrap; gap: 6px 20px; justify-content: center;
+  padding: 18px 16px 22px; font: 400 13px/1.5 var(--mono); color: var(--soluk);
+}
+.alt a { color: var(--soluk); }
+.alt a:hover { color: var(--camgobegi); }
+
+/* ---------- Terminal (index.html) ---------- */
+.sahne {
+  height: 100dvh; display: grid; grid-template-rows: minmax(0, 1fr) auto;
+  padding: 24px 16px 0; max-width: 980px; margin: 0 auto;
+}
+.pencere {
+  display: grid; grid-template-rows: auto minmax(0, 1fr) auto auto; min-height: 0;
+  background: var(--yuzey); border: 1px solid var(--cizgi); border-radius: 14px; overflow: hidden;
+}
+.baslik-cubugu {
+  display: flex; align-items: center; gap: 12px; padding: 10px 14px;
+  border-bottom: 1px solid var(--cizgi); background: var(--yuzey-ust);
+  font: 500 13px/1 var(--mono); color: var(--soluk);
+}
+.isik { display: flex; gap: 6px; }
+.isik i { width: 11px; height: 11px; border-radius: 50%; background: var(--cizgi); }
+.isik i:first-child { background: var(--tehlike); }
+.isik i:nth-child(2) { background: var(--kehribar); }
+.isik i:last-child { background: var(--basari); }
+.baslik-cubugu .durum { margin-left: auto; color: var(--basari); }
+.baslik-cubugu .durum::before { content: "●"; margin-right: 6px; animation: nabiz 2.4s ease-in-out infinite; }
+@keyframes nabiz { 50% { opacity: .35; } }
+
+.ekran {
+  padding: 16px 18px 8px; overflow-y: auto; font: 400 15px/1.65 var(--mono);
+  scrollbar-color: var(--cizgi) transparent; overscroll-behavior: contain;
+}
+.ekran:focus { outline: none; }
+.satir { white-space: pre-wrap; word-break: break-word; min-height: 1.65em; }
+.satir.girdi { color: var(--metin); margin-top: 6px; }
+.istem { color: var(--camgobegi); }
+.istem .yol { color: var(--kehribar); }
+.k-soluk { color: var(--soluk); }
+.k-mavi { color: var(--camgobegi); }
+.k-sari { color: var(--kehribar); }
+.k-kirmizi { color: var(--tehlike); }
+.k-yesil { color: var(--basari); }
+.k-kalin { font-weight: 700; }
+.ascii { color: var(--camgobegi); line-height: 1.15; font-size: 13px; white-space: pre; overflow-x: auto; }
+
+/* Çıktının içindeki tıklanabilir komutlar: terminal bilmeyen de dokunarak gezer. */
+[data-komut] {
+  color: var(--camgobegi); background: rgba(34, 211, 238, .08); border: 0; border-bottom: 1px dashed rgba(34, 211, 238, .5);
+  padding: 0 3px; font: inherit; border-radius: 3px;
+}
+[data-komut]:hover { background: var(--camgobegi); color: var(--zemin); }
+
+.tablo { display: grid; grid-template-columns: max-content 1fr; gap: 2px 18px; margin: 4px 0; }
+.tablo > :nth-child(odd) { white-space: nowrap; }
+
+/* Defne'nin notu: rehberde, terminal dilini sade Türkçeye çevirir. */
+.not {
+  font: 400 15px/1.6 var(--sans); white-space: normal; max-width: 64ch;
+  margin: 10px 0; padding: 12px 14px; border: 1px solid var(--cizgi); border-left: 3px solid var(--kehribar);
+  border-radius: 0 8px 8px 0; background: var(--zemin);
+}
+.not b { font-weight: 600; color: var(--kehribar); }
+.not code { font: 500 14px var(--mono); color: var(--camgobegi); }
+.ilerleme { color: var(--kehribar); }
+
+.komut-satiri {
+  display: flex; align-items: center; gap: 10px; padding: 10px 18px 14px;
+  font: 400 15px/1.65 var(--mono); border-top: 1px solid transparent;
+}
+.komut-satiri input {
+  flex: 1; min-width: 0; background: transparent; border: 0; padding: 4px 0; outline: none;
+  color: var(--metin); font: inherit; caret-color: var(--kehribar);
+}
+.komut-satiri input::placeholder { color: var(--soluk); opacity: .7; }
+
+/* Hızlı komut düğmeleri: klavye açmadan da gezilebilsin. */
+.dokun {
+  display: flex; gap: 8px; padding: 10px 14px; overflow-x: auto; border-top: 1px solid var(--cizgi);
+  background: var(--yuzey-ust); scrollbar-width: none;
+}
+.dokun::-webkit-scrollbar { display: none; }
+.dokun button {
+  flex: none; font: 500 13px/1 var(--mono); color: var(--metin); background: var(--yuzey);
+  border: 1px solid var(--cizgi); border-radius: 999px; padding: 10px 14px; min-height: 40px;
+}
+.dokun button:hover { border-color: var(--camgobegi); color: var(--camgobegi); }
+.dokun button.vurgu { border-color: var(--kehribar); color: var(--kehribar); }
+
+/* Açılıştaki tek sahne: kalkan çizilirken saldırı paketi çarpar ve söner. */
+.carpma { animation: carpma .5s ease-out 1; }
+@keyframes carpma { 0% { background: rgba(255, 77, 94, .25); } 100% { background: transparent; } }
+
+@media (max-width: 640px) {
+  .sahne { padding: 0; }
+  .pencere { border-radius: 0; border-left: 0; border-right: 0; border-top: 0; }
+  .ekran, .komut-satiri { font-size: 14px; padding-left: 14px; padding-right: 14px; }
+  .ascii { font-size: 10px; }
+  .tablo { grid-template-columns: 1fr; gap: 0; }
+  .tablo > :nth-child(even) { color: var(--soluk); margin-bottom: 6px; padding-left: 2ch; }
+  .isik { display: none; }
+}
+
+/* ---------- Belge sayfaları (gizlilik, şartlar, hesap silme) ---------- */
+.belge { max-width: 72ch; margin: 0 auto; padding: 32px 16px 8px; }
+.belge-ust {
+  display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap;
+  font: 400 14px/1.4 var(--mono); color: var(--soluk); padding-bottom: 18px; border-bottom: 1px solid var(--cizgi);
+}
+.belge-ust .istem { font-weight: 500; }
+.belge h1 { font: 700 clamp(28px, 6vw, 40px)/1.15 var(--mono); letter-spacing: -.02em; margin: 32px 0 8px; }
+.belge .tarih { color: var(--soluk); font: 400 14px var(--mono); margin: 0 0 28px; }
+.belge h2 { font: 600 18px/1.35 var(--mono); color: var(--camgobegi); margin: 36px 0 10px; }
+.belge h2::before { content: "## "; color: var(--cizgi); }
+.belge p, .belge li { color: #C9D6EE; }
+.belge strong { color: var(--metin); }
+.belge ul, .belge ol { padding-left: 1.3em; }
+.belge li { margin: 6px 0; }
+.belge li::marker { color: var(--camgobegi); }
+.belge code { font: 500 .92em var(--mono); color: var(--kehribar); }
+.ozet {
+  border: 1px solid var(--cizgi); background: var(--yuzey); border-radius: 12px; padding: 16px 18px; margin: 0 0 8px;
+}
+.ozet p { margin: 0; }
+.ozet p + p { margin-top: 8px; }
+.adimlar { counter-reset: adim; list-style: none; padding: 0 !important; }
+.adimlar li {
+  counter-increment: adim; position: relative; padding: 14px 16px 14px 56px; margin: 10px 0;
+  background: var(--yuzey); border: 1px solid var(--cizgi); border-radius: 12px;
+}
+.adimlar li::before {
+  content: counter(adim); position: absolute; left: 16px; top: 13px; width: 26px; height: 26px; border-radius: 50%;
+  display: grid; place-items: center; font: 700 14px var(--mono); color: var(--zemin); background: var(--camgobegi);
+}
+.uyari { border-left: 3px solid var(--tehlike); padding: 10px 14px; background: rgba(255, 77, 94, .07); border-radius: 0 8px 8px 0; }
+.dugme {
+  display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 12px 18px; border-radius: 10px;
+  background: var(--camgobegi); color: var(--zemin); font: 600 15px var(--mono); text-decoration: none;
+}
+.dugme:hover { background: var(--metin); color: var(--zemin); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
