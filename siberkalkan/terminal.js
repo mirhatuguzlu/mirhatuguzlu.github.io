@@ -385,8 +385,16 @@ form.addEventListener('submit', async (e) => {
   gecmisIndeks = gecmis.length;
 });
 
+// Hızlı komut şeridi ekrana sığmıyor: dokunulan düğmeyi ortaya kaydır ki komşuları iki yanda görünsün.
+const serit = document.getElementById('dokun');
+function ortala(dugme) {
+  const s = serit.getBoundingClientRect(), d = dugme.getBoundingClientRect();
+  serit.scrollBy({ left: d.left + d.width / 2 - (s.left + s.width / 2), behavior: azHareket ? 'auto' : 'smooth' });
+}
+
 document.addEventListener('click', (e) => {
   const d = e.target.closest('[data-komut], [data-calistir]');
+  if (d?.dataset.calistir) ortala(d);
   if (d) return dokunCalistir(d.dataset.komut || d.dataset.calistir);
   // Ekrana tıklayınca yazma satırına odaklan; ama metin seçen ya da bağlantıya basanı rahatsız etme.
   if (inceImlec && e.target.closest('.pencere') && !e.target.closest('a') && !getSelection().toString()) girdi.focus();
