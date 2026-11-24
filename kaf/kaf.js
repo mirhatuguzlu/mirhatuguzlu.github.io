@@ -1,6 +1,19 @@
 // Kaf'ın Yedi Kapısı tanıtım sayfası: dağ çizimi, yedi kapı sahnesi ve örnek oda. Kütüphanesiz.
 (() => {
   const azHareket = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // 0) Üst şerit: yüksekliği sabit sahnelere bildir; dar ekranda menü aç/kapa.
+  const ust = document.querySelector('.ust');
+  const ustOlc = () => document.documentElement.style.setProperty('--ust-h', ust.offsetHeight + 'px');
+  if (ust) { ustOlc(); addEventListener('resize', ustOlc); }
+  const menuDugme = document.querySelector('.menu-dugme');
+  const menu = document.getElementById('menu');
+  if (menuDugme && menu) {
+    const ac = (v) => { menu.classList.toggle('acik', v); menuDugme.setAttribute('aria-expanded', String(v)); };
+    menuDugme.addEventListener('click', () => ac(!menu.classList.contains('acik')));
+    menu.addEventListener('click', (e) => { if (e.target.closest('a')) ac(false); });
+    addEventListener('keydown', (e) => { if (e.key === 'Escape' && menu.classList.contains('acik')) { ac(false); menuDugme.focus(); } });
+  }
+
   const kapiRenk = ['#c27c45', '#c3cbd4', '#e0b252', '#9ad8ea', '#a7adb6', '#b09ce0', '#4fc795'];
 
   // 1) Açılış: dağ alttan yukarı kendini çizer, kapılar sırayla yanar, zirvede Zümrüdüanka parlar.

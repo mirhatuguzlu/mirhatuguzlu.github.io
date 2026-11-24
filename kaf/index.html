@@ -23,11 +23,15 @@
 <a class="atla" href="#icerik">İçeriğe geç</a>
 <header class="ust">
   <a class="marka" href="./" aria-label="Kaf'ın Yedi Kapısı, ana sayfa"><img src="logo.svg" width="30" height="30" alt="">Kaf'ın Yedi Kapısı</a>
-  <nav aria-label="Site">
-    <a href="./" aria-current="page">Oyun</a>
-    <a href="gizlilik.html">Gizlilik</a>
-    <a href="hesap-silme.html">Hesap silme</a>
+  <button class="menu-dugme" type="button" aria-expanded="false" aria-controls="menu">Menü</button>
+  <nav id="menu" aria-label="Sayfa">
+    <a href="#hikaye">Hikâye</a>
+    <a href="#kapilar">Kapılar</a>
+    <a href="#yolculuk">Nasıl oynanır</a>
+    <a href="#kahramanlar">Kahramanlar</a>
+    <a href="#modlar">Modlar</a>
   </nav>
+  <a class="indir" href="#indir">İndir</a>
 </header>
 
 <main id="icerik">
@@ -53,19 +57,19 @@
       <p class="alt">Anadolu masallarından, tamamen Türkçe bir metin macerası.</p>
       <div class="eylem">
         <a class="dugme" href="#yolculuk">Nasıl oynanır</a>
-        <span class="yakinda">Android için yakında Google Play'de</span>
+        <a class="yakinda" href="#indir">Android için yakında Google Play'de</a>
       </div>
     </div>
   </section>
 
-  <section class="masal sutun" aria-label="Hikâye">
+  <section class="masal sutun" id="hikaye" aria-label="Hikâye">
     <p>Evvel zaman içinde, kalbur saman içinde, bir köye Sessizlik çöktü. Ne horoz öter oldu ne değirmen döner;
     analar ninni söyleyemez oldu.</p>
     <p class="soluk">Derler ki çalınan yedi ses, Kaf Dağı'nın yedi kapısındaki yedi bekçide saklı. Dağın zirvesinde
     Zümrüdüanka bekliyor. Yola çıkan çok oldu; dönen az.</p>
   </section>
 
-  <section class="sutun kapilar-bas" aria-labelledby="kapilar-baslik">
+  <section class="sutun kapilar-bas" id="kapilar" aria-labelledby="kapilar-baslik">
     <h2 id="kapilar-baslik">Yedi kapı, yedi diyar</h2>
     <p>Her kapının ardında kendi kuralı olan bir diyar var. Kapıyı geçmek için önündeki bekçiyi yenmen gerek.</p>
   </section>
@@ -163,7 +167,7 @@ _/     \_________/     \_</pre>
     </div>
   </section>
 
-  <section class="bolum" aria-labelledby="kahraman-baslik">
+  <section class="bolum" id="kahramanlar" aria-labelledby="kahraman-baslik">
     <div class="sutun">
       <h2 id="kahraman-baslik">Kahramanlar</h2>
       <p class="giris">Yola ikisiyle başlarsın. Diğerleri yolda kendini gösterir.</p>
@@ -182,7 +186,7 @@ _/     \_________/     \_</pre>
     </div>
   </section>
 
-  <section class="bolum" aria-labelledby="mod-baslik">
+  <section class="bolum" id="modlar" aria-labelledby="mod-baslik">
     <div class="sutun">
       <h2 id="mod-baslik">Altı yol</h2>
       <dl class="modlar">
@@ -203,6 +207,18 @@ _/     \_________/     \_</pre>
         <div><h3>İnternet gerekir</h3><p>Kayıtların, ad ya da e-posta istemeyen bir misafir hesapla AB'deki sunucuda tutulur. İstersen Google hesabına bağlayıp başka telefonda sürdürürsün.</p></div>
         <div><h3>Reklam içerir</h3><p>Ücretsizdir. Tek seferlik "Reklamları kaldır" satın alımı geçiş ve banner reklamlarını kapatır; ödüllü reklamlar hep isteğe bağlıdır.</p></div>
         <div><h3>Herkes için</h3><p>Yazı boyutu, açık ve koyu tema, yüksek kontrast, azaltılmış hareket ve ekran okuyucu desteği.</p></div>
+      </div>
+    </div>
+  </section>
+  <section class="bolum" id="indir" aria-labelledby="indir-baslik">
+    <div class="sutun indir-kutu">
+      <img src="logo.svg" width="96" height="96" alt="">
+      <div>
+        <h2 id="indir-baslik">İndir</h2>
+        <p>Kaf'ın Yedi Kapısı Android için yakında Google Play'de, ücretsiz. Yayınlandığı gün buradaki düğme seni
+        doğrudan mağaza sayfasına götürecek.</p>
+        <span class="dugme pasif" aria-disabled="true">Google Play'de yakında</span>
+        <p class="kucuk-not">Android telefonlar için. Oynamak için internet bağlantısı gerekir.</p>
       </div>
     </div>
   </section>

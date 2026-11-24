@@ -19,11 +19,15 @@
 <a class="atla" href="#icerik">İçeriğe geç</a>
 <header class="ust">
   <a class="marka" href="./" aria-label="Kaf'ın Yedi Kapısı, ana sayfa"><img src="logo.svg" width="30" height="30" alt="">Kaf'ın Yedi Kapısı</a>
-  <nav aria-label="Site">
-    <a href="./">Oyun</a>
-    <a href="gizlilik.html" aria-current="page">Gizlilik</a>
-    <a href="hesap-silme.html">Hesap silme</a>
+  <button class="menu-dugme" type="button" aria-expanded="false" aria-controls="menu">Menü</button>
+  <nav id="menu" aria-label="Sayfa">
+    <a href="./#hikaye">Hikâye</a>
+    <a href="./#kapilar">Kapılar</a>
+    <a href="./#yolculuk">Nasıl oynanır</a>
+    <a href="./#kahramanlar">Kahramanlar</a>
+    <a href="./#modlar">Modlar</a>
   </nav>
+  <a class="indir" href="./#indir">İndir</a>
 </header>
 
 <main id="icerik" class="yasal okuma">
@@ -164,11 +168,12 @@
     <img class="alt-logo" src="logo.svg" width="44" height="44" alt="">
     <p>Kaf'ın Yedi Kapısı'nı Mirhat Muhammed Uğuzlu geliştiriyor.</p>
     <nav aria-label="Yasal">
-      <a href="./">Oyun</a>
+      <a href="gizlilik.html">Gizlilik politikası</a>
       <a href="hesap-silme.html">Hesap ve veri silme</a>
       <a href="../">Diğer uygulamalarım</a>
     </nav>
   </div>
 </footer>
+<script src="kaf.js"></script>
 </body>
 </html>
