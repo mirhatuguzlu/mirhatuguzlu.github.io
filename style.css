@@ -193,6 +193,8 @@ p, h1, h2, h3 { margin: 0; }
 .notch { width: 34%; height: calc(18 * var(--u)); background: #222; border-radius: 0 0 12px 12px; margin: calc(-14 * var(--u)) auto 0; }
 .a-top { display: flex; justify-content: space-between; align-items: center; font-family: var(--wide); font-stretch: 108%; font-size: 1.15em; }
 .a-top .ic { width: 1.1em; height: 1.1em; border-radius: 50%; border: 2px solid #fff; }
+.a-top .a-logo { width: 1.5em; height: 1.5em; }
+.a-logo.big { width: 3.4em; height: 3.4em; }
 .a-hello { opacity: .7; }
 .a-hero { height: 28%; border-radius: calc(14 * var(--u)); background: linear-gradient(135deg, #5a5a5a, #1b1b1b); display: flex; flex-direction: column; justify-content: center; align-items: center; gap: .6em; font-size: .9em; }
 .a-hero .play { width: 2.6em; height: 2.6em; border-radius: 50%; background: #fff; clip-path: polygon(38% 28%, 72% 50%, 38% 72%); }
