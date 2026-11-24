@@ -41,7 +41,7 @@ pre { margin: 0; font-family: var(--mono); }
   font-size: 16px;
 }
 .marka { display: flex; align-items: center; gap: 10px; color: var(--parsomen); text-decoration: none; font-weight: 700; }
-.marka pre { font-size: 7px; line-height: 1.05; color: var(--altin); }
+.marka img { display: block; border-radius: 7px; }
 .ust nav { display: flex; gap: 4px 20px; flex-wrap: wrap; }
 .ust nav a { color: var(--soluk); text-decoration: none; padding: 4px 0; }
 .ust nav a:hover, .ust nav a[aria-current="page"] { color: var(--parsomen); }
@@ -180,6 +180,7 @@ p { margin: 0 0 1em; }
 .alt-bilgi .sutun { display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap; align-items: end; }
 .alt-bilgi nav { display: flex; gap: 8px 22px; flex-wrap: wrap; }
 .alt-bilgi p { margin: 0; }
+.alt-logo { border-radius: 10px; }
 
 /* Yasal sayfalar */
 .yasal { padding: 56px 0 0; }
